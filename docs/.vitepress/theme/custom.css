@@ -1,0 +1,72 @@
+/* ScriptedScreens docs — custom theme overrides */
+
+:root {
+  /* Brand colors — electric blue to complement StationeersLua green */
+  --vp-c-brand-1: #3B82F6;
+  --vp-c-brand-2: #2563EB;
+  --vp-c-brand-3: #1D4ED8;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.14);
+
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+}
+
+.dark {
+  --vp-c-brand-1: #60A5FA;
+  --vp-c-brand-2: #93C5FD;
+  --vp-c-brand-3: #BFDBFE;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.16);
+
+  /* Deep dark background matching Stationeers screen aesthetic */
+  --vp-c-bg: #0B0F19;
+  --vp-c-bg-alt: #111827;
+  --vp-c-bg-elv: #1E293B;
+  --vp-c-bg-soft: #1E293B;
+}
+
+/* Hero section styling */
+.VPHero .name {
+  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Make inline code more visible in dark mode */
+.dark :not(pre) > code {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #93C5FD;
+}
+
+/* Custom element type badges */
+.element-display {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22C55E;
+}
+
+.element-interactive {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(59, 130, 246, 0.15);
+  color: #3B82F6;
+}
+
+.element-data {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(168, 85, 247, 0.15);
+  color: #A855F7;
+}
