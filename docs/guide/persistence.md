@@ -27,4 +27,4 @@ function deserialize(blob)
 end
 ```
 
-See the [StationeersLua persistence docs](https://your-org.github.io/StationeersLuaDocs/guide/persistence) for full details.
+See the [StationeersLua persistence docs](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) for full details.

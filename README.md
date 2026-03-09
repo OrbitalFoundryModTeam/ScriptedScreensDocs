@@ -1,6 +1,6 @@
 # ScriptedScreens Documentation
 
-Documentation site for [ScriptedScreens](https://github.com/your-org/ScriptedScreens) — custom touchscreen UIs for Stationeers using Lua scripting.
+Documentation site for [ScriptedScreens](https://orbitalfoundrymodteam.github.io/ScriptedScreensDocs/) — custom touchscreen UIs for Stationeers using Lua scripting.
 
 Built with [VitePress](https://vitepress.dev/).
 
@@ -33,7 +33,5 @@ Push to `main` — GitHub Actions will automatically build and deploy to GitHub 
 In `docs/.vitepress/config.mts`, update the `base` field to match your GitHub repo name:
 
 ```ts
-base: '/ScriptedScreensDocs/',
+base: ("/ScriptedScreensDocs/", ``);
 ```
-
-Also update any `your-org` references in links to your actual GitHub organization/username.

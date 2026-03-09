@@ -20,7 +20,7 @@ export default defineConfig({
       {
         text: 'Links',
         items: [
-          { text: 'StationeersLua Docs', link: 'https://your-org.github.io/StationeersLuaDocs/' },
+          { text: 'StationeersLua Docs', link: 'https://orbitalfoundrymodteam.github.io/ScriptedScreensDocs/' },
           { text: 'Discord', link: 'https://discord.gg/HxvySSu5G3' },
           { text: 'Ko-fi', link: 'https://ko-fi.com/G2G61S5ZB5' },
         ]
@@ -125,10 +125,9 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/your-org/ScriptedScreensDocs/edit/main/docs/:path',
+      pattern: 'https://github.com/orbitalfoundrymodteam/ScriptedScreensDocs/edit/main/docs/:path',
       text: 'Edit this page on GitHub'
     },
-
     footer: {
       message: '⚠️ This documentation was AI-generated and may contain inaccuracies. Please submit pull requests with corrections as needed.',
       copyright: 'Stationeers is developed by Rocketwerkz'

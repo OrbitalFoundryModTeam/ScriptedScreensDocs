@@ -1,6 +1,6 @@
 # What is ScriptedScreens?
 
-ScriptedScreens is a companion mod for [StationeersLua](https://your-org.github.io/StationeersLuaDocs/) that enables **custom touchscreen user interfaces** on Stationeers computer consoles and tablets. Build interactive dashboards, monitoring displays, control panels, and even games — all rendered directly on in-game screens using Lua scripts.
+ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/) that enables **custom touchscreen user interfaces** on Stationeers computer consoles and tablets. Build interactive dashboards, monitoring displays, control panels, and even games — all rendered directly on in-game screens using Lua scripts.
 
 ## Features
 
