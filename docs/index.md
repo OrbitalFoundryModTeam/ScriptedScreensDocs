@@ -71,5 +71,5 @@ Start with the [Getting Started guide](/guide/getting-started) for a step-by-ste
 :::
 
 ::: warning AI-Generated Documentation
-This documentation was AI-generated and may contain inaccuracies. If you find errors, please [submit a pull request](https://github.com/OrbitalFoundry/ScriptedScreensDocs) with corrections.
+This documentation was AI-generated and may contain inaccuracies. If you find errors, please [submit a pull request](https://github.com/OrbitalFoundryModTeam/ScriptedScreensDocs) with corrections.
 :::
