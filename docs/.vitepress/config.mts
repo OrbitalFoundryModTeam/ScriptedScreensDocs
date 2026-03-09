@@ -20,7 +20,7 @@ export default defineConfig({
       {
         text: 'Links',
         items: [
-          { text: 'StationeersLua Docs', link: 'https://orbitalfoundrymodteam.github.io/ScriptedScreensDocs/' },
+          { text: 'StationeersLua Docs', link: 'https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/' },
           { text: 'Discord', link: 'https://discord.gg/HxvySSu5G3' },
           { text: 'Ko-fi', link: 'https://ko-fi.com/G2G61S5ZB5' },
         ]
