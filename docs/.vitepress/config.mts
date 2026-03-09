@@ -124,7 +124,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/orbitalfoundrymodteam/ScriptedScreensDocs/edit/main/docs/:path',
+      pattern: 'https://github.com/orbitalfoundrymodteam/ScriptedScreensDocs/edit/master/docs/:path',
       text: 'Edit this page on GitHub'
     },
     footer: {
