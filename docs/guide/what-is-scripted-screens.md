@@ -13,7 +13,6 @@ ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymo
 - **Multiple Surfaces** — Maintain multiple named UI views per physical screen and switch between them
 - **Layout Helpers** — Grid, flex, and nested layout systems for responsive UIs without manual pixel math
 - **Image & Media** — Display remote images (PNG, JPG, animated GIF), stream video with spatial audio
-- **CCTV Integration** — Display live security camera feeds (requires CCTV mod)
 - **Sound Playback** — Play built-in game sounds, announcements, and remote audio with 3D spatial positioning
 - **Tablet Support** — Cartridges with target detection and wireless data network access
 - **Multiplayer Compatible** — UI state synced across all connected clients

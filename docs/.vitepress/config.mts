@@ -84,7 +84,6 @@ export default defineConfig({
             { text: 'Canvas Drawing', link: '/api/canvas' },
             { text: 'Image Element', link: '/api/image' },
             { text: 'Media Streaming', link: '/api/media' },
-            { text: 'Camera (CCTV)', link: '/api/camera' },
             { text: 'Sound Playback', link: '/api/sound' },
           ]
         },
