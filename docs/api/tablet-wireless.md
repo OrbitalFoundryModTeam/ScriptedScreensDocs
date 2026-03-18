@@ -34,29 +34,46 @@ print("connected:", status.connected, "in range:", status.in_range)
 ss.tablet.wireless.disconnect()
 ```
 
+## Remote Network Data Parity
+
+Once connected, a wireless Lua cartridge can use the remote data network almost like a wired ScriptedScreens board.
+
+Available operations include:
+
+- `batch_read()` / `batch_write()` against remote-network devices
+- `device_list()` on the remote network
+- `read_id()` / `write_id()` and `read_slot_id()` / `write_slot_id()`
+- device-memory calls by id such as `mem_get_id()` / `mem_put_id()` / `mem_clear_id()`
+- `require("modname")` for StationeersLua library chips on the remote network
+- `ic.net.*` messaging, pub/sub, and RPC over the wireless link
+
+::: info Limitation
+Tablet cartridges do **not** expose configurable `d0`-`d5` pin mappings like a wired computer or console board. Use remote-network operations and id-based addressing instead.
+:::
+
 ## API Reference
 
-| Function | Returns | Description |
-|---|---|---|
-| `ss.tablet.wireless.list()` | table[] | List available omni transmitters in range |
-| `ss.tablet.wireless.connect(id, mesh?)` | ok, err | Connect to a transmitter |
-| `ss.tablet.wireless.status()` | table | Query connection status |
-| `ss.tablet.wireless.disconnect()` | — | Disconnect from current network |
+| Function                                | Returns | Description                               |
+| --------------------------------------- | ------- | ----------------------------------------- |
+| `ss.tablet.wireless.list()`             | table[] | List available omni transmitters in range |
+| `ss.tablet.wireless.connect(id, mesh?)` | ok, err | Connect to a transmitter                  |
+| `ss.tablet.wireless.status()`           | table   | Query connection status                   |
+| `ss.tablet.wireless.disconnect()`       | —       | Disconnect from current network           |
 
 ### Transmitter Entry Fields
 
-| Field | Type | Description |
-|---|---|---|
-| `name` | string | Transmitter display name |
-| `id` | number | Transmitter ReferenceId |
-| `network_id` | number | Data network ID |
-| `distance` | number | Distance in meters |
+| Field        | Type   | Description              |
+| ------------ | ------ | ------------------------ |
+| `name`       | string | Transmitter display name |
+| `id`         | number | Transmitter ReferenceId  |
+| `network_id` | number | Data network ID          |
+| `distance`   | number | Distance in meters       |
 
 ### Status Fields
 
-| Field | Type | Description |
-|---|---|---|
-| `connected` | boolean | Currently connected |
-| `in_range` | boolean | Transmitter is in range |
-| `transmitter_id` | number | Connected transmitter ID |
-| `network_id` | number | Connected network ID |
+| Field            | Type    | Description              |
+| ---------------- | ------- | ------------------------ |
+| `connected`      | boolean | Currently connected      |
+| `in_range`       | boolean | Transmitter is in range  |
+| `transmitter_id` | number  | Connected transmitter ID |
+| `network_id`     | number  | Connected network ID     |

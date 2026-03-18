@@ -36,7 +36,7 @@ features:
     details: Pixel-level rendering for custom graphics — lines, circles, arcs, triangles, polylines. Perfect for games and oscilloscopes.
   - icon: 📱
     title: Tablet Support
-    details: Tablet cartridges with target detection — point at any device to see its stats, atmosphere, power, and slot contents.
+    details: Tablet cartridges with target detection and wireless remote-network access — inspect devices in front of you or tether to an omni transmitter for portable dashboards and control.
 ---
 
 ## Quick Example

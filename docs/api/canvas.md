@@ -39,21 +39,27 @@ ui:canvas_apply("my_canvas")  -- Commit to screen
 
 ## Function Reference
 
-| Function | Arguments |
-|---|---|
-| `canvas_clear` | `(id, color)` |
-| `canvas_pixel` | `(id, x, y, color)` |
-| `canvas_hline` | `(id, y, x1, x2, color)` |
-| `canvas_vline` | `(id, x, y1, y2, color)` |
-| `canvas_line` | `(id, x0, y0, x1, y1, color [, thickness])` |
-| `canvas_rect` | `(id, x, y, w, h, color)` |
-| `canvas_rect_outline` | `(id, x, y, w, h, color [, thickness])` |
-| `canvas_circle` | `(id, cx, cy, r, color [, thickness])` |
-| `canvas_fill_circle` | `(id, cx, cy, r, color)` |
-| `canvas_fill_triangle` | `(id, x0, y0, x1, y1, x2, y2, color)` |
-| `canvas_polyline` | `(id, {x,y,...}, color [, thickness])` |
-| `canvas_arc` | `(id, cx, cy, r, startDeg, endDeg, color [, thickness])` |
-| `canvas_apply` | `(id)` |
+| Function               | Arguments                                                |
+| ---------------------- | -------------------------------------------------------- |
+| `canvas_clear`         | `(id, color)`                                            |
+| `canvas_pixel`         | `(id, x, y, color)`                                      |
+| `canvas_hline`         | `(id, y, x1, x2, color)`                                 |
+| `canvas_vline`         | `(id, x, y1, y2, color)`                                 |
+| `canvas_line`          | `(id, x0, y0, x1, y1, color [, thickness])`              |
+| `canvas_rect`          | `(id, x, y, w, h, color)`                                |
+| `canvas_rect_outline`  | `(id, x, y, w, h, color [, thickness])`                  |
+| `canvas_circle`        | `(id, cx, cy, r, color [, thickness])`                   |
+| `canvas_fill_circle`   | `(id, cx, cy, r, color)`                                 |
+| `canvas_fill_triangle` | `(id, x0, y0, x1, y1, x2, y2, color)`                    |
+| `canvas_polyline`      | `(id, {x,y,...}, color [, thickness])`                   |
+| `canvas_arc`           | `(id, cx, cy, r, startDeg, endDeg, color [, thickness])` |
+| `canvas_apply`         | `(id)`                                                   |
+
+## Multiplayer Sync
+
+Canvas output is synced to nearby multiplayer clients automatically after you call `canvas_apply(id)`.
+
+Large updates are diffed and compressed internally, so you can keep using the normal canvas API without writing separate multiplayer sync code.
 
 ::: warning
 Always call `canvas_apply(id)` after drawing. Drawing operations are buffered and only rendered when applied.

@@ -13,12 +13,14 @@
 
 `print(...)` writes to the **Lua Debugger motherboard** Logs tab. Insert the debugger board into a computer, select your endpoint, and view captured logs.
 
+If you are attached with the **StationeersLua VS Code debugger**, ScriptedScreens log output and runtime errors are also forwarded into the attached debug session.
+
 ## Troubleshooting
 
-| Problem | Solution |
-|---|---|
-| UI not showing | Ensure you called `ss.ui.activate("main")` |
-| Wrong screen | Check the screen index parameter on `ss.ui.surface()` |
+| Problem                  | Solution                                                   |
+| ------------------------ | ---------------------------------------------------------- |
+| UI not showing           | Ensure you called `ss.ui.activate("main")`                 |
+| Wrong screen             | Check the screen index parameter on `ss.ui.surface()`      |
 | Button clicks not firing | Make sure the element is on the active surface and visible |
-| Keyboard doesn't work | Click the screen to enter **Interface Mode** |
-| Exit keyboard mode | Press **ALT** or call `ss.exit_interface_mode()` |
+| Keyboard doesn't work    | Click the screen to enter **Interface Mode**               |
+| Exit keyboard mode       | Press **ALT** or call `ss.exit_interface_mode()`           |
