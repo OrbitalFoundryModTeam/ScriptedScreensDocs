@@ -40,7 +40,7 @@ ui:element({
 
 ## Gas Icons (`ss.ui.icons.gas`)
 
-`Oxygen`, `Nitrogen`, `CarbonDioxide` (alias `CO2`), `Volatiles`, `Pollutant`, `Water`, `NitrousOxide` (alias `N2O`), `LiquidNitrogen`, `LiquidOxygen`, `LiquidVolatiles`, `Steam`, `LiquidCarbonDioxide` (alias `LiquidCO2`), `LiquidPollutant`, `LiquidNitrousOxide`, `Hydrogen` (alias `H2`), `LiquidHydrogen`, `PollutedWater`
+`Oxygen`, `Nitrogen`, `CarbonDioxide` (alias `CO2`), `Methane` (alias `Volatiles`), `Pollutant`, `Water`, `NitrousOxide` (alias `N2O`), `LiquidNitrogen`, `LiquidOxygen`, `LiquidMethane` (alias `LiquidVolatiles`), `Steam`, `LiquidCarbonDioxide` (alias `LiquidCO2`), `LiquidPollutant`, `LiquidNitrousOxide`, `Hydrogen` (alias `H2`), `LiquidHydrogen`, `PollutedWater`, `Hydrazine`, `LiquidHydrazine`, `LiquidAlcohol` (alias `Ethanol`), `Helium` (alias `He`), `LiquidSodiumChloride` (alias `NaCl`), `Silanol`, `LiquidSilanol`, `HydrochloricAcid` (alias `HCl`), `LiquidHydrochloricAcid`, `Ozone` (alias `O3`), `LiquidOzone`
 
 ## Slot Icons (`ss.ui.icons.slot`)
 
