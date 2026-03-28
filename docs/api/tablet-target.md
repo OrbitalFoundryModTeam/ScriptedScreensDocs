@@ -48,6 +48,7 @@ ss.tablet.target(nil)
 | `atmosphere_mode` | string | `"room"` or `"world"` |
 | `room` | table \| nil | Room atmosphere data (if mode = "room") |
 | `world` | table \| nil | World atmosphere data |
+| `logic` | table \| nil | When the target exposes logic: readable values as string keys → numbers, using the **same names** as `ic.enums.LogicType` (e.g. `Setting`, `Power`, `Pressure`, `Temperature`, `On`, `Mode`, `Charge`). May also include `Error`, `Maximum`, `Volume`, `TotalMoles`, identity-style fields when the device offers them, and **extra gas/liquid ratio** fields for newer substances when the device exposes them. Only fields the device actually allows reading are included. |
 
 ## Parameters
 
