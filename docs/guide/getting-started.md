@@ -18,7 +18,7 @@ If your script reads or writes external devices (dials, lights, sensors):
 
 1. Use a **screwdriver** on the **bolt on the side** of the console to open the **configuration screen** (or insert a **Data Disk** into one of the computer's disk slots)
 2. Assign devices to pins **d0** through **d5**
-3. Your script can use `read(0, ...)` / `write(0, ...)` to talk to whatever device you assigned to d0, etc.
+3. Your script can use `ic.read(0, ...)` / `ic.write(0, ...)` to talk to whatever device you assigned to d0, etc.
 
 ## Your First UI
 

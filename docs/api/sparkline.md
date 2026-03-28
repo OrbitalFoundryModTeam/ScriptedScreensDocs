@@ -43,7 +43,7 @@ local spark = ui:element({ id = "chart", type = "sparkline", ... })
 
 function tick(dt)
     table.remove(history, 1)
-    history[#history + 1] = read(0, ic.enums.LogicType.Temperature) or 20
+    history[#history + 1] = ic.read(0, ic.enums.LogicType.Temperature) or 20
     spark:set_props({ data = history })
     ui:commit()
 end
