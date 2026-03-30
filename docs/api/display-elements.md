@@ -43,7 +43,7 @@ ui:element({
 
 ## `progress`
 
-Progress bar with filled portion. Supports color stops and indeterminate mode.
+Progress bar with filled portion. Supports color stops, indeterminate mode, and configurable fill direction (horizontal or vertical).
 
 ```lua
 -- Basic progress bar
@@ -76,6 +76,22 @@ ui:element({
     props = { indeterminate = true },
     style = { bg = "#1E293B", fill = "#38BDF8" },
 })
+
+-- Vertical progress bar (bottom to top)
+ui:element({
+    id = "fuel_level", type = "progress",
+    rect = { unit = "px", x = 10, y = 100, w = 30, h = 120 },
+    props = { value = 60, min = 0, max = 100, direction = ss.direction.BottomToTop },
+    style = { bg = "#1E293B", fill = "#38BDF8" },
+})
+
+-- Right-to-left progress bar
+ui:element({
+    id = "rtl_bar", type = "progress",
+    rect = { unit = "px", x = 50, y = 100, w = 200, h = 20 },
+    props = { value = 0.4, direction = ss.direction.RightToLeft },
+    style = { bg = "#1E293B", fill = "#EAB308" },
+})
 ```
 
 | Prop | Description |
@@ -84,6 +100,7 @@ ui:element({
 | `min` | Minimum value (default 0) |
 | `max` | Maximum value (default 1) |
 | `indeterminate` | If true, shows animated sliding fill |
+| `direction` | Fill direction: `ss.direction.LeftToRight` (default), `ss.direction.RightToLeft`, `ss.direction.TopToBottom`, `ss.direction.BottomToTop`. Raw strings `"ltr"`, `"rtl"`, `"ttb"`, `"btt"` also accepted. Works with both determinate and indeterminate modes. |
 
 | Style | Description |
 |---|---|

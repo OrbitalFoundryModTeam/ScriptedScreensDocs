@@ -4,12 +4,12 @@
 
 1. Place a **Computer** or **Console**
 2. Craft/spawn a **ScriptedScreens Circuitboard (Lua Chip)** or **Motherboard (Lua Chip)**
-3. Insert the board into the computer
-4. Insert an **Integrated Circuit (Lua)** into the board's built-in chip slot
+3. Insert an **Integrated Circuit (Lua)** into the board's built-in chip slot
+4. Insert the board into the computer
 5. Open the IC10 Editor and paste a Lua script
 
 ::: info Tablet Setup
-For tablets, use a **Cartridge (Lua Chip)** or **Cartridge (Lua Chip, Wireless)**. Insert the cartridge into a tablet, then insert the Lua chip into the cartridge's slot.
+For tablets, use a **Cartridge (Lua Chip)** or **Cartridge (Lua Chip, Wireless)**. Insert the Lua chip into the cartridge's slot, then insert the cartridge into a tablet.
 :::
 
 ### Wiring Devices to Pins

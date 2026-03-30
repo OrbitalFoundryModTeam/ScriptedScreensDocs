@@ -47,6 +47,7 @@ export default defineConfig({
             { text: 'Virtual Resolution', link: '/guide/virtual-resolution' },
             { text: 'Persistence', link: '/guide/persistence' },
             { text: 'Tips & Best Practices', link: '/guide/tips' },
+            { text: 'Modular Consoles', link: '/guide/modular-consoles' },
           ]
         },
       ],
@@ -93,6 +94,12 @@ export default defineConfig({
             { text: 'Grid Layout', link: '/api/grid' },
             { text: 'Flex Layout', link: '/api/flex' },
             { text: 'Nested Layout', link: '/api/nested-layout' },
+          ]
+        },
+        {
+          text: 'Reference',
+          items: [
+            { text: 'Global Tables & Enums', link: '/api/globals' },
           ]
         },
         {
