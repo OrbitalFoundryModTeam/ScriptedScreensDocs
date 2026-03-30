@@ -21,7 +21,7 @@ ui:element({
 |---|---|---|
 | `on_click` | button, checkbox, toggle, table | `(playerName)` or `(value, playerName)` |
 | `on_change` | slider, select, textinput, table | `(value, playerName)` |
-| `on_toggle` | select | `(playerName)` |
+| `on_toggle` | checkbox, toggle | `(playerName)` or `(isChecked, playerName)` depending on element |
 
 ## Dynamic Handler Registration
 

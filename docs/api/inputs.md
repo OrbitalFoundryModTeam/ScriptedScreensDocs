@@ -34,33 +34,30 @@ ui:element({
 
 ## `select`
 
-Dropdown select. Options are pipe-delimited.
+Dropdown select. Supply labels as a **Lua array** or a **pipe-separated string** (legacy).
 
 ```lua
 ui:element({
     id = "mode", type = "select",
     rect = { unit = "px", x = 10, y = 40, w = 200, h = 28 },
-    props = { options = "Auto|Manual|Off", selected = "0", open = "false" },
+    props = { options = { "Auto", "Manual", "Off" }, selected = "0" },
     style = { bg = "#1E293B", text = "#E2E8F0", font_size = 12 },
-    on_toggle = function(player)
-        -- Toggle props.open between "true"/"false"
-    end,
     on_change = function(value, player)
-        print("Selected index:", value)
+        print("Selected index:", value)  -- 0-based index as string
     end,
 })
 ```
 
 | Prop | Description |
 |---|---|
-| `options` | Pipe-delimited option strings |
+| `options` | Array of strings, e.g. `{ "A", "B" }`, **or** pipe-delimited `"A\|B"` |
 | `selected` | 0-based selected index |
-| `open` | `"true"` / `"false"` — dropdown visibility |
+| `open` | *(Optional)* `"true"` / `"false"` — omit for automatic open/close |
 
 | Event | Callback Args |
 |---|---|
-| `on_toggle` | `(playerName)` — dropdown opened/closed |
 | `on_change` | `(optionIndex, playerName)` — option selected |
+| `on_toggle` | *(Optional)* `(playerName)` — only if you need legacy manual `open` state |
 
 ## `textinput`
 
