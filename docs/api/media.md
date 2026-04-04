@@ -18,6 +18,7 @@ ui:element({
 - Audio responds to atmosphere — muffled in vacuum, normal in pressurized rooms
 - Players adjust per-screen volume with **Ctrl+Alt+MouseWheel**
 - Global mute toggle in client config
+- If the game applies a **mixer snapshot** (for example during an airlock pressurisation cycle), playback that was interrupted is **restarted** when the server still expects the clip to be playing — audio no longer stays permanently silent after that transition
 
 | Prop | Description |
 |---|---|

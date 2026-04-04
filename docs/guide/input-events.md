@@ -21,7 +21,7 @@ ui:element({
 |---|---|---|
 | `on_click` | button, checkbox, toggle, table | `(playerName)` or `(value, playerName)` |
 | `on_change` | slider, select, textinput, table | `(value, playerName)` |
-| `on_toggle` | checkbox, toggle | `(playerName)` or `(isChecked, playerName)` depending on element |
+| `on_toggle` | checkbox, toggle, **select** | Checkbox/toggle: `(playerName)` or `(isChecked, playerName)`. **select:** optional `(playerName)` when you use legacy manual `open` state — omit for default client-managed dropdowns (see [inputs → select](../api/inputs.md#select)) |
 
 ## Dynamic Handler Registration
 
