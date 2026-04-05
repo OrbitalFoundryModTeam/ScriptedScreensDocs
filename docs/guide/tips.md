@@ -20,6 +20,7 @@ If you are attached with the **StationeersLua VS Code debugger**, ScriptedScreen
 | Problem                  | Solution                                                   |
 | ------------------------ | ---------------------------------------------------------- |
 | UI not showing           | Ensure you called `ss.ui.activate("main")`                 |
+| UI blank after joining a multiplayer server | Your script likely never calls `ss.ui.activate` for the surface you draw (e.g. `"main"`). Late-join sync can restore the UI **model**, but **clients only build the on-screen widgets for the active surface**, and that choice is replicated when you call `activate`. |
 | Wrong screen             | Check the screen index parameter on `ss.ui.surface()`      |
 | Button clicks not firing | Make sure the element is on the active surface and visible |
 | Keyboard doesn't work    | Click the screen to enter **Interface Mode**               |
