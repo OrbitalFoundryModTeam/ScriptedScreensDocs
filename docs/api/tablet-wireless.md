@@ -38,6 +38,8 @@ ss.tablet.wireless.disconnect()
 
 Once connected, a wireless Lua cartridge can use the remote data network almost like a wired ScriptedScreens board.
 
+While you stay **connected and in range**, the **tablet battery** drains a bit faster—about the same extra drain as the suit **Wireless Development Board**. When you inspect the cartridge, the description includes a note while this extra drain is happening.
+
 Available operations include:
 
 - `batch_read()` / `batch_write()` against remote-network devices
