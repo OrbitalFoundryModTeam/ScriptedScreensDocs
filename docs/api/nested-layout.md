@@ -4,6 +4,8 @@
 
 Returns a **handles table** mapping each element `id` to its handle.
 
+Leaf nodes can set **`z_index`** / **`zIndex`** on **`props`** the same as with `surface:element` — see [Draw order](/guide/elements#draw-order).
+
 ```lua
 local h = ui:layout({
     layout = "flex",

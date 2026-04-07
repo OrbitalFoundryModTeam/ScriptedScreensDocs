@@ -44,6 +44,10 @@ end
 ui:clear()  -- Remove all elements from this surface
 ```
 
+## Draw order on a surface
+
+Elements on a surface are grouped by their **parent** in the UI tree (the surface root, a container panel, or scroll **content**). Among siblings, **[draw order is controlled by `z_index`](/guide/elements#draw-order)** (`z_index` / `zIndex` on **`props` only`). Switching surfaces with `ss.ui.activate` does not mix stacking between surfaces — each active view only shows its own surface’s hierarchy.
+
 ## Multi-Page UI Pattern
 
 ```lua

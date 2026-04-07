@@ -2,6 +2,8 @@
 
 Scrollable container. Child elements are parented inside the scroll content area.
 
+Overlapping children (same scroll **content** parent) respect **[`z_index` / `zIndex` on `props`](/guide/elements#draw-order)** like any other siblings. Place hint labels with a higher `z` or **above** overlapping panels in content Y coordinates so text stays readable.
+
 ```lua
 local scroll = ui:element({
     id = "log_scroll", type = "scrollview",

@@ -35,6 +35,27 @@ panel:set_style({ bg = "#0EA5E9" })
 ui:remove("panel")  -- Also unregisters event handlers
 ```
 
+## Draw order (`z_index`) {#draw-order}
+
+Within the **same parent** (surface root, scroll view content, or nested container), elements stack like layers. Set **`z_index`** (snake_case) or **`zIndex`** (camelCase) on **`props` only** — not on `style`, so there is only one place to look. **Larger values draw in front** of smaller ones; when two elements share the same value, order is stable by element `id`.
+
+```lua
+ui:element({ id = "bg", type = "panel", rect = { unit = "px", x = 0, y = 0, w = 480, h = 272 },
+    props = { z_index = 0 }, style = { bg = "#0F172A" } })
+ui:element({ id = "modal", type = "panel", rect = { unit = "px", x = 40, y = 40, w = 400, h = 192 },
+    props = { z_index = 10 }, style = { bg = "#1E293BAA" } })
+```
+
+::: tip Updates and `tick`
+Changing `z_index` in a later `ui:element` upsert or via **`set_props`** takes effect on the **next** batch the client applies. Animated stacking in a `tick` loop is fine — each `commit` re-sorts siblings under each parent.
+:::
+
+::: tip Labels vs panels
+Put instructional text **above** overlapping panels in layout coordinates, or give the label a **higher** `z_index` than the panels behind it, so text is not covered.
+:::
+
+**Regression demo:** `Examples/ZIndexDemo.lua` (static stack, animated cycle, scrollview + `zIndex` on props).
+
 ## Nested / Relative Layout
 
 Handles can create nested children with **relative layout** and **id prefixing**:

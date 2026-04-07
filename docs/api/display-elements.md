@@ -1,5 +1,20 @@
 # Display Elements
 
+## Draw order (`z_index`)
+
+All element types can use **`z_index`** or **`zIndex`** on **`props` only** to control **stacking among siblings** (widgets that share the same parent in the UI tree: surface root, a nested container’s children, or scroll view **content**). Visual styling stays in `style`; draw order is always a prop so authors are not split between two tables.
+
+| Rule | Detail |
+|------|--------|
+| Larger value | Drawn **in front** of smaller values |
+| Key name | `z_index` or `zIndex` (either form on **`props`**) |
+| Same `z_index` | Stable tie-break by element **`id`** (string ordinal) |
+| Scope | **Per parent only** — z on a child does not reorder against cousins under another parent |
+
+Order is applied after each UI sync batch (e.g. after `ui:commit()` or tick-driven updates). Overlapping labels and panels both participate.
+
+For a full explanation and nested examples, see [Elements — Draw order](/guide/elements#draw-order). Shipped regression demo: **`Examples/ZIndexDemo.lua`**.
+
 ## `label`
 
 Text display. Supports TMP rich text tags (`<b>`, `<color>`, etc.).

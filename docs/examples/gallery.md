@@ -23,6 +23,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 - **LiveDashboard.lua** — Animated station monitoring dashboard that updates every tick with simulated sensor data.
 - **GradientShowcase.lua** — All gradient features: 2-color, multi-stop, all four directions, and the `ss.ui.gradient()` helper.
 - **ProgressSpinnerDemo.lua** — Progress bar features (`color_stops`, `indeterminate`), spinners, and gauge invert mode.
+- **ZIndexDemo.lua** — Overlapping panels with `props.z_index` / `props.zIndex`: static stack, animated phase cycle, scrollview overlap (visual test for draw order).
 
 ## Control Panels
 
