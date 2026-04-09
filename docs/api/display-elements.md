@@ -8,7 +8,7 @@ All element types can use **`z_index`** or **`zIndex`** on **`props` only** to c
 |------|--------|
 | Larger value | Drawn **in front** of smaller values |
 | Key name | `z_index` or `zIndex` (either form on **`props`**) |
-| Same `z_index` | Stable tie-break by element **`id`** (string ordinal) |
+| Same `z_index` | Order follows **sibling index** after the batch (upsert / append order; pre–`z_index` behavior) |
 | Scope | **Per parent only** — z on a child does not reorder against cousins under another parent |
 
 Order is applied after each UI sync batch (e.g. after `ui:commit()` or tick-driven updates). Overlapping labels and panels both participate.

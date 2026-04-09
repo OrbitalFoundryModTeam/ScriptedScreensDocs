@@ -37,7 +37,7 @@ ui:remove("panel")  -- Also unregisters event handlers
 
 ## Draw order (`z_index`) {#draw-order}
 
-Within the **same parent** (surface root, scroll view content, or nested container), elements stack like layers. Set **`z_index`** (snake_case) or **`zIndex`** (camelCase) on **`props` only** — not on `style`, so there is only one place to look. **Larger values draw in front** of smaller ones; when two elements share the same value, order is stable by element `id`.
+Within the **same parent** (surface root, scroll view content, or nested container), elements stack like layers. Set **`z_index`** (snake_case) or **`zIndex`** (camelCase) on **`props` only** — not on `style`, so there is only one place to look. **Larger values draw in front** of smaller ones; when two elements share the same value, order matches **sibling order after the batch** (typically the order elements were upserted — same as pre–`z_index` “last child on top”). Set explicit `z_index` when you need overlap without relying on that order.
 
 ```lua
 ui:element({ id = "bg", type = "panel", rect = { unit = "px", x = 0, y = 0, w = 480, h = 272 },
