@@ -50,7 +50,7 @@ ui:element({
 
 A curated set of common prefab names. You can also pass **any** prefab name string or numeric hash.
 
-**Ingots:** `IronIngot`, `SteelIngot`, `CopperIngot`, `GoldIngot`, `SilverIngot`, `NickelIngot`, `LeadIngot`, `SiliconIngot`, `CoalIngot`, `ElectrumIngot`, `SolderIngot`, `ConstantanIngot`, `InvarIngot`, `AstroloyIngot`, `HastelloyIngot`, `WaspaloyIngot`, `InconelIngot`, `SteliteIngot`
+**Ingots:** `IronIngot`, `SteelIngot`, `CopperIngot`, `GoldIngot`, `SilverIngot`, `NickelIngot`, `LeadIngot`, `SiliconIngot`, `CoalIngot`, `ElectrumIngot`, `SolderIngot`, `ConstantanIngot`, `InvarIngot`, `AstroloyIngot`, `HastelloyIngot`, `WaspaloyIngot`, `InconelIngot`, `StelliteIngot` (alias: `SteliteIngot`)
 
 **Ores:** `IronOre`, `CopperOre`, `GoldOre`, `SilverOre`, `NickelOre`, `LeadOre`, `SiliconOre`, `CoalOre`, `UraniumOre`, `CobaltOre`
 

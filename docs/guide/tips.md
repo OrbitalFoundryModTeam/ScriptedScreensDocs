@@ -22,6 +22,8 @@ If you are attached with the **StationeersLua VS Code debugger**, ScriptedScreen
 | ------------------------ | ---------------------------------------------------------- |
 | UI not showing           | Ensure you called `ss.ui.activate("main")`                 |
 | UI blank after joining a multiplayer server | Your script likely never calls `ss.ui.activate` for the surface you draw (e.g. `"main"`). Late-join sync can restore the UI **model**, but **clients only build the on-screen widgets for the active surface**, and that choice is replicated when you call `activate`. |
+| Multiplayer canvas animation looks “steppy” or delayed | Use `canvas_begin_update` / `canvas_end_update` (or `canvas_with_update`) so one logical frame is one server batch when limits allow. On the **client** PC, try BepInEx **ScriptedScreens** `CanvasRemoteEveryBatchGpuUpload = true` so each received batch uploads to the GPU instead of merging in-frame (higher GPU cost). |
+| `canvas_begin_update` is nil | Lua runs on the **server**; that process must load a ScriptedScreens build that registers the API. Update **ScriptedScreens.dll** on the **dedicated server** (or host) mods folder, not only the client. |
 | Wrong screen             | Check the screen index parameter on `ss.ui.surface()`      |
 | Button clicks not firing | Make sure the element is on the active surface and visible |
 | Keyboard doesn't work    | Click the screen to enter **Interface Mode**               |
