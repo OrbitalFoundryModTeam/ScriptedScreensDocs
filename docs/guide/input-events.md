@@ -80,9 +80,33 @@ ui:on_frame(function()
             print("up", ev.value)
         elseif ev.event == "click" then
             print("click", ev.id, ev.value)
+        elseif ev.event == "drag_begin" then
+            -- Draggable panel: pointer went down on a valid drag; id = drag_dispatch_id or panel id
+            -- value = "x&y" = leader top-left in surface pixels at grab (see Display elements → panel)
+            print("drag_begin", ev.id, ev.value)
+        elseif ev.event == "drag_end" then
+            -- Panel drag finished (props.draggable on type "panel"); id = drag_dispatch_id or panel id
+            -- value = "dx&dy" in surface pixels for this gesture (see Display elements → panel)
+            print("drag_end", ev.id, ev.value)
+        elseif ev.event == "drop" then
+            -- Payload drag-and-drop: drag_source + drag_payload onto drop_target (panel/button/icon)
+            -- id = drop_dispatch_id or drop zone element id; value = "payload&source_id&target_id"
+            print("drop", ev.id, ev.value)
+        elseif ev.event == "drag_payload_begin" then
+            print("drag_payload_begin", ev.id, ev.value)
+        elseif ev.event == "drag_payload_cancel" then
+            print("drag_payload_cancel", ev.id, ev.value)
         end
     end
 end)
 ```
 
 `poll_input()` drains a per-frame input queue so `on_frame` scripts get smooth, frame-aligned events. Tick-based handlers still work — events are delivered to both paths.
+
+### `drag_begin` / `drag_end` (draggable `panel`)
+
+For a **`panel`** with **`props.draggable`**, **`drag_begin`** fires when a drag **starts** (left button, valid `drag_group` targets resolved). **`ev.id`** is **`drag_dispatch_id`** or the panel’s **`id`**. **`ev.value`** is **`"<x>&<y>"`**: the **leader** rect’s top-left in **surface pixels** (same coordinate system as element rects).
+
+**`drag_end`** fires on **release** after positions are committed to the model. **`ev.value`** is **`"<dx>&<dy>"`**: horizontal and vertical **delta** for this gesture only (not cumulative across older drags).
+
+Tick event-bus names: `scriptedscreens.ui.<surface>.drag_begin:<id>` and `scriptedscreens.ui.<surface>.drag_end:<id>`. Payload drops: `scriptedscreens.ui.<surface>.drop:<id>`, `…drag_payload_begin:<id>`, `…drag_payload_cancel:<id>`. Full props and stacking: [Display elements — `panel` → Draggable panels](/api/display-elements#draggable-panels) and [Drag payload & drop targets](/api/display-elements#drag-payload--drop-targets-ugui-drag-and-drop).

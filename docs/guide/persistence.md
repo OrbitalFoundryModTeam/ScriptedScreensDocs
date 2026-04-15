@@ -27,4 +27,6 @@ function deserialize(blob)
 end
 ```
 
+For structured state, use **`util.json.encode` / `util.json.decode`** (see **`Examples/SampleUI/RocketControlDemo.lua`**). **`Examples/VisorHudPong.lua`** saves **`lay_dx` / `lay_dy`** (dragged HUD offset) the same way.
+
 See the [StationeersLua persistence docs](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) for full details.

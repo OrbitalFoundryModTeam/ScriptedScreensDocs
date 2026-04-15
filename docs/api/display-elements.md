@@ -40,7 +40,7 @@ ui:element({
 
 ## `panel`
 
-Background rectangle. Non-interactive.
+Background rectangle. By default the panel image does **not** receive pointer hits (clicks pass through to widgets behind). Optional **draggable** mode turns on hit-testing on the panel so you can drag a HUD cluster or reposition a chrome region (works on **motherboard** `ss.ui`, **tablet cartridge** `ss.ui`, and **visor** `ss.hud` — same props everywhere).
 
 ```lua
 ui:element({
@@ -55,6 +55,38 @@ ui:element({
 | `bg` | Background color |
 | `gradient` | End color for gradient (start = `bg`), array of colors, or array of `{position, color}` pairs |
 | `gradient_dir` | `"horizontal"`, `"vertical"` (default), `"diagonal"`, `"radial"` |
+
+### Draggable panels
+
+Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element. While dragging, every listed **`drag_group`** widget moves together; on **pointer release**, their rectangles are written back to the authoritative UI model and synced like any other layout change.
+
+| Prop | Description |
+|---|---|
+| `draggable` | `"true"` / `"1"` — panel receives pointer drag; raise **`z_index`** on buttons, `interface_button`, and other controls **above** this panel so they stay clickable. |
+| `drag_group` | Comma- or semicolon-separated **element ids** on the **same surface** that move with this drag (default: this panel’s id only). Every id in the group must use **`rect.unit = "px"`** (same flat sibling layout under the surface root). |
+| `drag_dispatch_id` | Optional. Element id used for **`drag_begin`** / **`drag_end`** in `surface:poll_input()` and for the tick event-bus names (default: this panel’s **`id`**). |
+
+**Lua / `poll_input`:** on a valid drag start, **`event = "drag_begin"`**, **`id`** = dispatch id, **`value`** = `"<x>&<y>"` — **leader** (first in `drag_group`) top-left in **surface pixels** at grab time (script space, Y down). When the drag finishes, **`event = "drag_end"`**, same **`id`**, **`value`** = `"<dx>&<dy>"` — this gesture’s **delta** in surface pixels (not cumulative across past drags). If your script calls `clear()` and rebuilds absolute rects from formulas, add the **`drag_end`** delta to your base position so the next rebuild matches where the user dropped the cluster. See [Input & events — Frame-aligned input](/guide/input-events#frame-aligned-input-on-frame) and example **`Examples/VisorHudPong.lua`**.
+
+**Multiplayer:** `drag_begin` / `drag_end` use the same serialized UI-input path as clicks (`DispatchUiInput` → host). The host applies **`drag_end`** deltas to the authoritative model and flushes; pure clients mirror live **`RectTransform`** positions into the local element dictionary (no pending ops) so **`ApplyRect`** does not snap the group back before the next sync.
+
+**`set_props` / `set_style` during drag:** property-only handle updates merge from the model; the engine refreshes the snapshot **rect** from the live `RectTransform` for **pixel** elements so mid-drag text/style updates (e.g. a score label) do not snap widgets back to stale coordinates. While a **`drag_group`** pointer drag is active, **`ApplyRect`** is skipped for those live `RectTransform`s so a concurrent flush cannot reset mid-drag positions.
+
+### Drag payload & drop targets (uGUI drag-and-drop)
+
+Separate from **panel reposition** drags: you can mark **`panel`**, **`button`**, or **`icon`** elements as **payload sources** and other **`panel` / `button` / `icon`** elements as **drop zones** (Unity `IDropHandler`). Use this for “drag this ingot thumbnail into that silo slot” style UX. While dragging, the engine spawns a **semi-opaque duplicate of the source graphic** (sprite or `RawImage` texture) parented to the same canvas so it **follows the pointer**; the source slot dims until release. Example: **`Examples/DragDropSilo.lua`** (full-surface **`ss.ui`** demo with per-silo “last accepted” icons).
+
+| Prop | Elements | Description |
+|---|---|---|
+| `drag_source` | `panel`, `button`, `icon` | `"true"` / `"1"` — this widget starts a **payload** drag (not `drag_group` movement). Requires **`drag_payload`**. Mutually exclusive with **`draggable`** on the **same** `panel`: if both are set, **`drag_source`** wins (no `ScriptedScreensUiDragGroup` on that element). |
+| `drag_payload` | (with `drag_source`) | Non-empty string token carried to the drop handler (e.g. prefab name `ItemSteelIngot`). Avoid `&` in the token; **`drop`** **`value`** uses `&` as delimiter. |
+| `drop_target` | `panel`, `button`, `icon` | `"true"` / `"1"` — accepts drops from the same chip + surface. The panel/image must receive raycasts (`drop_target` forces hit-testing on `panel` when it would otherwise be transparent to hits). |
+| `drop_accepts` | (with `drop_target`) | Optional whitelist of allowed **`drag_payload`** values (case-insensitive). Prefer a Lua array of strings, e.g. `{ "ItemSteelIngot", "ItemGoldIngot" }`. Legacy: a single comma/semicolon-separated string is still parsed. Omit or leave empty to accept any non-empty payload. |
+| `drop_dispatch_id` | (with `drop_target`) | Optional. **`poll_input`** **`ev.id`** for successful **`drop`** events (defaults to the drop zone element’s **`id`**). |
+
+**`poll_input`:** **`drop`** — **`id`** = **`drop_dispatch_id`** or drop zone **`id`**; **`value`** = `"<payload>&<source_element_id>&<target_element_id>"`. Optional: **`drag_payload_begin`** / **`drag_payload_cancel`** on the **source** element **`id`** ( **`value`** = payload; cancel fires if the pointer released without a valid drop).
+
+**Multiplayer:** `drag_payload_begin`, `drag_payload_cancel`, and **`drop`** are sent over the same UI-input channel. The host re-validates each **`drop`** (source **`drag_payload`**, target **`drop_accepts`**, ids) before **`DispatchInputEvent`** so clients cannot forge drops.
 
 ## `progress`
 
