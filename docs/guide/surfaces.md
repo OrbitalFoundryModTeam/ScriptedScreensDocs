@@ -21,6 +21,10 @@ ss.ui.activate("settings")
 
 You can keep writing to inactive surfaces — they will display the latest state when activated.
 
+### Built-in port configuration
+
+When the computer or console is showing the **mod-provided port wiring screen** (second physical screen: data disk inserted on computers, or screw on consoles), **`ss.ui.activate(...)` does nothing** for that motherboard. Scripts keep running, but they cannot switch surfaces until you leave config mode. This prevents periodic `activate` calls from covering the config UI.
+
 ## Screen Index
 
 For multi-screen setups, provide a screen index:
