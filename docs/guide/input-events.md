@@ -19,9 +19,9 @@ ui:element({
 
 | Event | Elements | Callback Args |
 |---|---|---|
-| `on_click` | button, checkbox, toggle, table | `(playerName)` or `(value, playerName)` |
+| `on_click` | button, **checkbox**, **toggle**, **`interface_button`**, table | **`interface_button`:** same Lua key, but the bus is **`interface_mode`** (`(value, playerName)` with `value` `"1"`/`"0"`). Others: `(playerName)` unless **`props.value`** is set on a normal button, then `(value, playerName)`. |
 | `on_change` | slider, select, textinput, table | `(value, playerName)` |
-| `on_toggle` | checkbox, toggle, **select** | Checkbox/toggle: `(playerName)` or `(isChecked, playerName)`. **select:** optional `(playerName)` when you use legacy manual `open` state — omit for default client-managed dropdowns (see [inputs → select](../api/inputs.md#select)) |
+| `on_toggle` | **select** only | Optional `(playerName)` when you use legacy manual `props.open` on the dropdown header — omit for default client-managed dropdowns (see [inputs → select](../api/inputs.md#select)) |
 
 ## Dynamic Handler Registration
 

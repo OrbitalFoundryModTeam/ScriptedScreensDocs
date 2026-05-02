@@ -50,13 +50,37 @@ Outline-only rectangle (no fill).
 | Style | Description |
 |---|---|
 | `color` | Outline color |
-| `thickness` | Border thickness (default 1) |
+| `thickness` | Border thickness in pixels (default **2**, same as Unity `Outline` distance) |
 
 ## `circle`
 
-Filled or outline circle.
+Filled disk or outline ring. Fill vs stroke is controlled by **`props.filled`**, not by `thickness`.
 
-| Style | Description |
+```lua
+-- Filled (default): use style.bg for the fill color (style.color is ignored)
+ui:element({
+    id = "led",
+    type = "circle",
+    rect = { unit = "px", x = 100, y = 100, w = 50, h = 50 },
+    style = { bg = "#B36200" },
+})
+
+-- Outline only: set filled to false; use style.color and style.thickness
+ui:element({
+    id = "ring",
+    type = "circle",
+    rect = { unit = "px", x = 160, y = 100, w = 50, h = 50 },
+    props = { filled = false },
+    style = { color = "#B36200", thickness = 3 },
+})
+```
+
+| Prop | Description |
 |---|---|
-| `color` | Circle color |
-| `thickness` | Outline thickness (0 = filled) |
+| `filled` | Omit, empty, `true`, or `1` for **filled** disk (default). `false` or `0` for **outline** only. |
+
+| Style | Mode | Description |
+|---|---|---|
+| `bg` | Filled | Fill tint (default white). |
+| `color` | Outline | Stroke color when `filled` is false (default white). |
+| `thickness` | Outline | Unity `Outline` distance in pixels (default **2**). |

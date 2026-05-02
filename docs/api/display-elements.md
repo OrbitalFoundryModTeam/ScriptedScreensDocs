@@ -56,6 +56,8 @@ ui:element({
 | `gradient` | End color for gradient (start = `bg`), array of colors, or array of `{position, color}` pairs |
 | `gradient_dir` | `"horizontal"`, `"vertical"` (default), `"diagonal"`, `"radial"` |
 
+There is **no** `border`, `border_width`, or `border_radius` style on `panel` in the renderer. For a colored frame, add a **`rect_outline`** (or **`border`**) element with the same `rect` and `style.color` / `style.thickness` (default thickness **2**).
+
 ### Draggable panels
 
 Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element. While dragging, every listed **`drag_group`** widget moves together; on **pointer release**, their rectangles are written back to the authoritative UI model and synced like any other layout change.
