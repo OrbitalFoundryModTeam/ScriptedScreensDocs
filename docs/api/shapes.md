@@ -54,7 +54,7 @@ Outline-only rectangle (no fill).
 
 ## `circle`
 
-Filled disk or outline ring. Fill vs stroke is controlled by **`props.filled`**, not by `thickness`.
+Filled **ellipse** (inscribed in `rect`) or elliptical **outline ring**. The renderer uses a mesh `Graphic`, not a square `Image`, so equal `w`/`h` gives a true circle. Fill vs stroke is controlled by **`props.filled`**, not by `thickness`.
 
 ```lua
 -- Filled (default): use style.bg for the fill color (style.color is ignored)
