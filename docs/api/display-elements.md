@@ -65,7 +65,8 @@ Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element
 | Prop | Description |
 |---|---|
 | `draggable` | `"true"` / `"1"` — panel receives pointer drag; raise **`z_index`** on buttons, `interface_button`, and other controls **above** this panel so they stay clickable. |
-| `drag_group` | Comma- or semicolon-separated **element ids** on the **same surface** that move with this drag (default: this panel’s id only). Every id in the group must use **`rect.unit = "px"`** (same flat sibling layout under the surface root). |
+| `drag_group` | Comma- or semicolon-separated **element ids** on the **same surface** that move with this drag (default: this panel’s id only). Every id in the group must use **`rect.unit = "px"`**. For `surface:layout(...)` containers, you can also use `"auto"` or `drag_group_auto = true` to collect every descendant id automatically. |
+| `drag_bounds` | Optional live clamp for the draggable **leader** during the gesture. `"screen"` / `"surface"` keeps the leader fully inside the surface root. `"element:<id>"` keeps the leader fully inside another same-surface element's rect. Followers in `drag_group` move with the leader. Omit the prop for raw unclamped drag. |
 | `drag_dispatch_id` | Optional. Element id used for **`drag_begin`** / **`drag_end`** in `surface:poll_input()` and for the tick event-bus names (default: this panel’s **`id`**). |
 
 **Lua / `poll_input`:** on a valid drag start, **`event = "drag_begin"`**, **`id`** = dispatch id, **`value`** = `"<x>&<y>"` — **leader** (first in `drag_group`) top-left in **surface pixels** at grab time (script space, Y down). When the drag finishes, **`event = "drag_end"`**, same **`id`**, **`value`** = `"<dx>&<dy>"` — this gesture’s **delta** in surface pixels (not cumulative across past drags). If your script calls `clear()` and rebuilds absolute rects from formulas, add the **`drag_end`** delta to your base position so the next rebuild matches where the user dropped the cluster. See [Input & events — Frame-aligned input](/guide/input-events#frame-aligned-input-on-frame) and example **`Examples/VisorHudPong.lua`**.
@@ -73,6 +74,8 @@ Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element
 **Multiplayer:** `drag_begin` / `drag_end` use the same serialized UI-input path as clicks (`DispatchUiInput` → host). The host applies **`drag_end`** deltas to the authoritative model and flushes; pure clients mirror live **`RectTransform`** positions into the local element dictionary (no pending ops) so **`ApplyRect`** does not snap the group back before the next sync.
 
 **`set_props` / `set_style` during drag:** property-only handle updates merge from the model; the engine refreshes the snapshot **rect** from the live `RectTransform` for **pixel** elements so mid-drag text/style updates (e.g. a score label) do not snap widgets back to stale coordinates. While a **`drag_group`** pointer drag is active, **`ApplyRect`** is skipped for those live `RectTransform`s so a concurrent flush cannot reset mid-drag positions.
+
+**Bounds are still script-author owned by default:** the runtime does **not** clamp drag unless you opt in with **`drag_bounds`**. That means off-edge peek, overscroll feedback, or larger virtual spaces still work without the engine snapping your panel back. If you do want a HUD cluster to stop at the visible edge while dragging, set **`drag_bounds = "screen"`** (or `"surface"`). See **`Examples/DragBoundsDemo.lua`** for a minimal example and **`Examples/VisorHudPong.lua`** for a full visor HUD using the same pattern.
 
 ### Drag payload & drop targets (uGUI drag-and-drop)
 

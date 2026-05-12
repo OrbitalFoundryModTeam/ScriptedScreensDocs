@@ -3,7 +3,7 @@ layout: home
 hero:
   name: ScriptedScreens
   text: Custom Touchscreen UIs for Stationeers
-  tagline: Build interactive dashboards, control panels, and games — all rendered on in-game computer screens using Lua
+  tagline: Build interactive dashboards, visor HUDs, control panels, and games - all rendered in-game with Lua
   image:
     src: /logo.png
     alt: ScriptedScreens Logo
@@ -36,7 +36,10 @@ features:
     details: Pixel-level rendering for custom graphics — lines, circles, arcs, triangles, polylines. Perfect for games and oscilloscopes.
   - icon: 📱
     title: Tablet Support
-    details: Tablet cartridges with target detection and wireless remote-network access — inspect devices in front of you or tether to an omni transmitter for portable dashboards and control.
+    details: Tablet cartridges with target detection and wireless remote-network access - inspect devices in front of you or tether to an omni transmitter for portable dashboards and control.
+  - icon: 👓
+    title: Programmable Visor HUDs
+    details: Build wearer-tied HUD overlays with `ss.hud`, including draggable panels, vanilla-HUD avoidance with `ss.client_overlay()`, and fast canvas mini-games.
 ---
 
 ## Quick Example

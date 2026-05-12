@@ -12,6 +12,12 @@
 For tablets, use a **Cartridge (Lua Chip)** or **Cartridge (Lua Chip, Wireless)**. Insert the Lua chip into the cartridge's slot, then insert the cartridge into a tablet.
 :::
 
+::: info Programmable Visor Setup
+For visor HUDs, use **Programmable Visor Glasses** (crafted at the **Tool Manufactory Tier 2**) with an **Integrated Circuit (Lua)** inserted into the visor's chip slot. Visor scripts use **`ss.hud`** instead of `ss.ui`, and the HUD only runs while the visor is powered and worn in the glasses slot.
+:::
+
+If you are building for visors, read **[Programmable Visor HUDs](/guide/visor-huds)** next - that page covers `ss.client_overlay()`, safe-area helpers, drag behavior, and the visor example scripts.
+
 ### Wiring Devices to Pins
 
 If your script reads or writes external devices (dials, lights, sensors):
@@ -95,12 +101,13 @@ Changes are batched. After creating/updating elements, call `ui:commit()` to pus
 
 ### Rect / Layout Units
 
-- `unit = "px"` — Pixels (top-left origin, Y increases downward)
-- `unit = "%"` / `"percent"` — Percentages (0–100) of screen size
+- `unit = "px"` - Pixels (top-left origin, Y increases downward)
+- `unit = "%"` / `"percent"` - Percentages (0-100) of screen size
 
 ## Next Steps
 
-- **[Surfaces & Views](/guide/surfaces)** — Multi-page UIs
-- **[Elements](/guide/elements)** — Element handles and updates
-- **[Display Elements](/api/display-elements)** — Full element type reference
-- **[Example Gallery](/examples/gallery)** — Copy-paste examples
+- **[Surfaces & Views](/guide/surfaces)** - Multi-page UIs
+- **[Programmable Visor HUDs](/guide/visor-huds)** - Wearer-tied HUD overlays with `ss.hud`
+- **[Elements](/guide/elements)** - Element handles and updates
+- **[Display Elements](/api/display-elements)** - Full element type reference
+- **[Example Gallery](/examples/gallery)** - Copy-paste examples

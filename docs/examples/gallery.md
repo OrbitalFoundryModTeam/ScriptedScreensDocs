@@ -2,6 +2,18 @@
 
 ScriptedScreens ships with a large collection of example scripts in the `Examples/` folder. Here's a categorized overview.
 
+## Programmable Visor HUDs
+
+- **VisorHudLayoutDemo.lua** - Compact visor HUD showing `ss.client_overlay()`-aware placement and dynamic layout rebuilds.
+- **VisorHudStopwatch.lua** - Interactive mission timer HUD with draggable visor panel behavior.
+- **VisorHudSciFiTicker.lua** - Bottom-edge ticker HUD that stays clear of the vanilla suit UI.
+- **VisorHudMissionDeck.lua** - Button-driven visor HUD panel with status text and mission-style interactions.
+- **VisorHudPong.lua** - Playable Pong on a visor HUD using canvas drawing, `on_frame`, and keyboard/input mode.
+- **VisorHudMultiPanel.lua** - Main reference example for larger visor HUDs using `surface:layout(...)`, per-panel `offset`, and `drag_group = "auto"`.
+- **UiContextProbe.lua** - Live overlay probe that draws the current `ss.client_overlay()` rectangles so you can see exactly what visor HUD space the vanilla UI is using.
+- **DragDropSilo.lua** - Drag-payload/drop-target example: drag items between slots, validate the drop, and handle status events. Best reference for `drag_payload`, `drop_target`, `drop_accepts`, and drop callback patterns.
+- **DragBoundsDemo.lua** - Small copyable demo showing `drag_bounds = "screen"` and `drag_bounds = "element:<id>"`.
+
 ## Tablet Cartridges (Target Detection)
 
 - **AtmosAnalyzer.lua** — Replicates the base game's atmos cartridge. Point at pipes, tanks, or vents to see pressure, temperature, and gas composition.

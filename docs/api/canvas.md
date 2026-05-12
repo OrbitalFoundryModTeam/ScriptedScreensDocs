@@ -90,6 +90,8 @@ Open groups are **auto-closed** before the server flush if you forget `canvas_en
 
 `CanvasCommandMinSyncAutoTune` / `CanvasCommandMinSyncInterval` limit how often the server sends **when multiple groups are queued**. When there is **exactly one** pending group and it contains **more than one** op (typical `begin`/`end` frame), that flush **skips** the min-sync delay so one grouped animation frame is not throttled like a backlog.
 
+**Programmable visor HUDs are the exception.** For visor hosts, the server keeps the normal throttle and applies an extra visor-specific minimum sync floor, because `on_frame` visor games redraw every Unity frame and would otherwise flood command batches. The relevant mod config keys (both under **`[Multiplayer]`** in `ScriptedScreens.cfg`) are **`VisorCanvasCommandMinSyncFloorSeconds`** (default ~1/45 s) and **`VisorCanvasDenseFrameOpThreshold`** (default 14 ops, below which a dense RGBA snapshot is preferred over a command list). **`Examples/VisorHudPong.lua`** is the reference for visor-safe canvas animation.
+
 ### Client display: coalescing vs every batch
 
 By default, the **game client** may **merge** several received canvas batches that finish in the same Unity frame into **one** GPU texture upload (fewer `SetPixels32` calls). Intermediate batches might not appear on screen even though they were received.
@@ -101,6 +103,10 @@ To show **every** received batch as its own GPU update (smoother motion when the
 ### Dedicated server and Lua
 
 Lua runs on the **server** process. `canvas_begin_update` and other surface APIs come from the **server’s** `ScriptedScreens.dll`.
+
+### `commit()` still matters for animated canvases
+
+Canvas drawing is flushed to clients when the surface commits. If your `on_frame` callback redraws a canvas every frame, you should still call **`surface:commit()`** every frame after your canvas work. This applies to both normal `ss.ui` canvases and visor `ss.hud` canvases.
 
 ### Legacy pixel sync
 

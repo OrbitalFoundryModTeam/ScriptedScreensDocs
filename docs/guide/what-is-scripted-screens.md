@@ -1,6 +1,6 @@
 # What is ScriptedScreens?
 
-ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/) that enables **custom touchscreen user interfaces** on Stationeers computer consoles and tablets. Build interactive dashboards, monitoring displays, control panels, and even games — all rendered directly on in-game screens using Lua scripts.
+ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/) that enables **custom touchscreen user interfaces** on Stationeers computer consoles, tablets, and programmable visors. Build interactive dashboards, monitoring displays, control panels, HUD overlays, and even games - all rendered directly in-game using Lua scripts.
 
 ## Features
 
@@ -15,6 +15,7 @@ ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymo
 - **Image & Media** — Display remote images (PNG, JPG, animated GIF), stream video with spatial audio
 - **Sound Playback** — Play built-in game sounds, announcements, and remote audio with 3D spatial positioning
 - **Tablet Support** — Cartridges with target detection and wireless data network access
+- **Programmable Visor HUDs** - Build wearer-tied HUD overlays with `ss.hud`, including draggable panels and canvas mini-games
 - **Multiplayer Compatible** — UI state synced across all connected clients
 - **Save/Load Persistence** — Board UI snapshots persisted across world saves
 
@@ -22,10 +23,13 @@ ScriptedScreens is a companion mod for [StationeersLua](https://orbitalfoundrymo
 
 ScriptedScreens introduces new circuit boards and cartridges that host Lua chips with direct screen access:
 
-1. **Circuitboard (Lua Chip)** / **Motherboard (Lua Chip)** — Insert into a Computer or Console
-2. **Cartridge (Lua Chip)** / **Cartridge (Lua Chip, Wireless)** — Insert into a Tablet
+1. **Circuitboard (Lua Chip)** / **Motherboard (Lua Chip)** - Insert into a Computer or Console
+2. **Cartridge (Lua Chip)** / **Cartridge (Lua Chip, Wireless)** - Insert into a Tablet
+3. **Programmable Visor Glasses** - Insert a Lua chip into the visor and use `ss.hud` for player HUD overlays
 
 Each board/cartridge has a slot for an **Integrated Circuit (Lua)**. Your Lua script runs on the chip and uses the `ss` API to create UI elements, handle input, and draw on the screen.
+
+If you are specifically building wearable overlays, start with **[Programmable Visor HUDs](/guide/visor-huds)**.
 
 ## Community
 

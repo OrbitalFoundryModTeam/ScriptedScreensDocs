@@ -40,6 +40,7 @@ export default defineConfig({
         {
           text: 'Core Concepts',
           items: [
+            { text: 'Programmable Visor HUDs', link: '/guide/visor-huds' },
             { text: 'Surfaces & Views', link: '/guide/surfaces' },
             { text: 'Elements', link: '/guide/elements' },
             { text: 'Colors & Gradients', link: '/guide/colors' },
