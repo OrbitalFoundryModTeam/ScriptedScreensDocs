@@ -110,23 +110,15 @@ if ss.hud.intersects_vanilla(x, y, w, h) then
 end
 ```
 
-### `ss.client_overlay_version()`
+### `ss.hud.on_overlay_change(fn)`
 
-Returns a monotonic int that bumps only when the overlay snapshot actually changes (panel rects, modal flags, canvas dimensions). Compare it against a stored value to skip rebuilds on frames where nothing moved:
+Registers a callback that fires when the vanilla overlay snapshot actually changes (panel rects, modal flags, canvas dimensions). Use it to rebuild layout without a polling loop:
 
 ```lua
-local last_v = -1
-
-hud:on_frame(function()
-    local v = ss.client_overlay_version()
-    if v ~= last_v then
-        last_v = v
-        rebuild()
-    end
+ss.hud.on_overlay_change(function()
+    rebuild()
 end)
 ```
-
-This replaces the old pattern of hashing 5-11 overlay fields every frame. One int compare is cheap enough to run every `on_frame`.
 
 If you want to inspect every overlay rect visually, use **`Examples/UiContextProbe.lua`** - it draws them color-coded by `kind` in the exact coordinate space your scripts use.
 
@@ -145,7 +137,6 @@ If you want to inspect every overlay rect visually, use **`Examples/UiContextPro
 | `screen_w`, `screen_h` | Wearer's physical screen resolution |
 | `relay_age_s` | Seconds since the snapshot was relayed (0 for local) |
 | `relay_stale` | `true` if `relay_age_s > 5` |
-| `version` | Monotonic int - compare with `ss.client_overlay_version()` to skip rebuilds when nothing changed |
 
 All panel rects are in **visor canvas coordinates** (top-left origin, Y increases downward) - the same space as your `hud:element` rects. No scaling math needed.
 
@@ -157,63 +148,57 @@ Do **not** hardcode `1920x1080`, and do not clamp the result upward. On dedicate
 
 ## Dragging visor panels
 
-Draggable visor HUDs use the same drag system as normal ScriptedScreens surfaces:
+Three props on the panel define a draggable HUD:
+
+- **`draggable = "true"`** - this panel receives pointer drags.
+- **`drag_group = "auto"`** - moves every descendant of this layout subtree along with the panel. Omit it if you only want the panel itself to move.
+- **`drag_bounds = "screen"`** - clamps the live drag so the panel cannot leave the visor canvas. Omit it for raw unclamped drag.
+
+The runtime stores the cumulative offset for each draggable element. Read it back with **`hud:drag_offset(id)`** during `rebuild()`, then re-run `rebuild()` from a single callback when the offset changes:
 
 ```lua
-props = {
-    draggable = "true",
-    drag_group = "auto",
-    drag_bounds = "screen",
-    drag_dispatch_id = "deck",
-}
-```
-
-- **`drag_group = "auto"`** is the easiest way to move a whole layout subtree together.
-- **`drag_bounds = "screen"`** is the usual visor choice when you want the panel to stop at the visible edge during the drag.
-- If you omit `drag_bounds`, drag stays raw and unclamped.
-- Keep your own saved `lay_dx` / `lay_dy` clamp in rebuild code as a safety net for stale saves or changed aspect ratios.
-
-The basic pattern - accumulate drag offsets in `poll_input`, clamp them, then use them in `rebuild`:
-
-```lua
-local lay_dx, lay_dy = 0, 0
+local PANEL_W, PANEL_H = 240, 96
+local BASE_X, BASE_Y = 24, 24
 
 local function rebuild()
-    local base_x, base_y = ... -- from safe_area or first_free_anchor
-
-    -- clamp so the panel cannot be dragged fully off-screen
-    local sz = hud:size()
-    lay_dx = math.max(-base_x, math.min(sz.w - PANEL_W - base_x, lay_dx))
-    lay_dy = math.max(-base_y, math.min(sz.h - PANEL_H - base_y, lay_dy))
-
+    local off = hud:drag_offset("panel")
     hud:clear()
     hud:layout({
         id = "panel", type = "panel",
-        layout = "column",
-        rect = { unit = "px", x = base_x + lay_dx, y = base_y + lay_dy,
-                 w = PANEL_W, h = PANEL_H },
+        rect = {
+            unit = "px",
+            x = BASE_X + off.dx,
+            y = BASE_Y + off.dy,
+            w = PANEL_W, h = PANEL_H,
+        },
         props = {
             draggable = "true",
             drag_group = "auto",
             drag_bounds = "screen",
-            drag_dispatch_id = "panel",
         },
-        children = { ... },
+        children = { --[[ your widgets ]] },
     })
     hud:commit()
 end
 
-hud:on_frame(function()
-    -- accumulate drag deltas from poll_input
-    for _, ev in ipairs(hud:poll_input() or {}) do
-        if ev.event == "drag_end" and ev.id == "panel" then
-            local dx, dy = ev.value:match("([^&]+)&([^&]+)")
-            lay_dx = lay_dx + (tonumber(dx) or 0)
-            lay_dy = lay_dy + (tonumber(dy) or 0)
-            rebuild()
-        end
-    end
-end)
+hud:on_drag(rebuild)              -- fires when the user releases the panel
+ss.hud.on_overlay_change(rebuild) -- fires when vanilla UI shows/hides
+rebuild()
+```
+
+**Persisting position across saves.** Save the offset table from `serialize()` and restore it with `hud:set_drag_offset(id, dx, dy)` in `deserialize()`:
+
+```lua
+function serialize()
+    local off = hud:drag_offset("panel")
+    return util.json.encode({ dx = off.dx, dy = off.dy })
+end
+
+function deserialize(s)
+    local t = util.json.decode(s)
+    if t then hud:set_drag_offset("panel", t.dx or 0, t.dy or 0) end
+    rebuild()
+end
 ```
 
 See **`Examples/VisorHudStopwatch.lua`**, **`VisorHudMissionDeck.lua`**, and **`VisorHudMultiPanel.lua`** for complete working versions of this pattern.

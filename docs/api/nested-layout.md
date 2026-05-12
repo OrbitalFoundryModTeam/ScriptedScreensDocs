@@ -99,7 +99,6 @@ ui:layout({
             props = {
                 draggable = "true",
                 drag_group = "auto",   -- or drag_group_auto = true
-                drag_dispatch_id = "deck",
             },
             children = {
                 { id = "title", type = "label", rect = { h = 18 }, props = { text = "DRAG ME" } },
