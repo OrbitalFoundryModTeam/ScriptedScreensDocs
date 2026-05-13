@@ -60,8 +60,6 @@ A curated set of common prefab names. You can also pass **any** prefab name stri
 
 **Components:** `Cable`, `CableCoil`, `Pipe`, `SteelSheets`, `IronSheets`, `CopperSheets`, `GoldSheets`, `SteelFrames`, `IronFrames`, `CircuitBoard`, `IC`, `LuaChip`, `Battery`, `BatteryLarge`, `GasCanister`, `GasFilter`, `DataDisk`, `SensorLens`, `Motor`
 
-**Gas Canisters:** `GasOxygen`, `GasNitrogen`, `GasCO2`, `GasVolatiles`, `GasWater`, `GasN2O`
-
 **Food / Plants:** `Potato`, `Tomato`, `Pumpkin`, `Corn`, `Wheat`, `Soybean`, `Rice`, `Mushroom`, `CannedFood`
 
 **Equipment:** `Helmet`, `Suit`, `Jetpack`, `MiningBelt`, `ToolBelt`, `Uniform`
