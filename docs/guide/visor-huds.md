@@ -2,6 +2,10 @@
 
 `ScriptedScreens` visor scripts use **`ss.hud`** instead of `ss.ui`. The API is intentionally familiar - you still create surfaces, elements, layouts, canvases, and input handlers - but the output is a wearer-tied HUD overlay instead of a world-space console or tablet screen.
 
+::: tip Credits
+Thanks to **WIKUS** for the visor model used by Programmable Visor glasses in-game.
+:::
+
 ## When to use `ss.hud`
 
 Use **`ss.hud`** when your Lua chip is installed in **Programmable Visor Glasses**:
