@@ -207,6 +207,18 @@ end
 
 See **`Examples/VisorHudStopwatch.lua`**, **`VisorHudMissionDeck.lua`**, and **`VisorHudMultiPanel.lua`** for complete working versions of this pattern.
 
+## World targeting and anchored markers
+
+Visor-only APIs on `ss.hud` (full reference: [Visor HUD Targeting & World Anchors](/api/visor-hud-target)):
+
+- **`ss.hud.target(callback, interval)`** — look-at raycast from the wearer (like tablet target)
+- **`ss.hud.mark_names` / `mark_prefabs` / `mark_clear` / `markers()`** — devices on the wireless data network
+- **`ss.hud.wearer_room()`** — room the wearer stands in; filter markers with `m.room.id`
+- **`ss.hud.anchor` / `anchor_marker` / `anchor_props`** — world-anchored panels, labels, canvas, or trees; the wearer client projects them every frame
+- **Distance scaling** — `scale_by_distance`, `scale_near_m`, `scale_far_m`, `scale_min`, `scale_max`; closer = larger, farther = smaller without Lua rebuild
+
+Examples: **VisorHudBatteryMarkers.lua**, **VisorHudLookTargetMarkers.lua**, **VisorHudFloatingCanvas.lua** (tune `MAX_DISPLAY_DISTANCE_M` and `SCALE_*` at the top).
+
 ## Visor lens tint
 
 Programmable visors also expose visor-only lens tint control through **`ss.hud.lens_color()`**:
@@ -234,6 +246,9 @@ The important rule is simple: if an `on_frame` callback redraws a canvas, still 
 - **`VisorHudLayoutDemo.lua`** - overlay-aware placement and rebuild patterns
 - **`VisorHudMultiPanel.lua`** - larger multi-panel HUD using `surface:layout(...)`, `offset`, and `drag_group = "auto"`
 - **`VisorHudPong.lua`** - `on_frame`, canvas, and interface-mode example
+- **`VisorHudBatteryMarkers.lua`** - wireless battery markers, room filter, distance-scaled tags
+- **`VisorHudLookTargetMarkers.lua`** - look-at target card with world anchor
+- **`VisorHudFloatingCanvas.lua`** - anchored panel + canvas mini-graph
 - **`UiContextProbe.lua`** - live visor overlay diagnostic for `ss.client_overlay()`
 
 ## Next Steps
@@ -242,4 +257,5 @@ The important rule is simple: if an `on_frame` callback redraws a canvas, still 
 - **[Surfaces & Views](/guide/surfaces)** - shared surface concepts used by both `ss.ui` and `ss.hud`
 - **[Input & Events](/guide/input-events)** - clicks, drag events, and interface mode
 - **[Nested Layout](/api/nested-layout)** - declarative layout for multi-panel visor HUDs
+- **[Visor HUD Targeting & World Anchors](/api/visor-hud-target)** - markers, look-at, anchors, distance scaling
 - **[Example Gallery](/examples/gallery)** - overview of the bundled sample scripts

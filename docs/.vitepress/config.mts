@@ -104,10 +104,11 @@ export default defineConfig({
           ]
         },
         {
-          text: 'Tablet',
+          text: 'Tablet & Visor',
           items: [
-            { text: 'Target Detection', link: '/api/tablet-target' },
+            { text: 'Tablet Target Detection', link: '/api/tablet-target' },
             { text: 'Wireless Networks', link: '/api/tablet-wireless' },
+            { text: 'Visor HUD Targeting & Anchors', link: '/api/visor-hud-target' },
           ]
         },
       ],

@@ -10,6 +10,9 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 - **VisorHudMissionDeck.lua** - Button-driven visor HUD panel with status text and mission-style interactions.
 - **VisorHudPong.lua** - Playable Pong on a visor HUD using canvas drawing, `on_frame`, and keyboard/input mode.
 - **VisorHudMultiPanel.lua** - Main reference example for larger visor HUDs using `surface:layout(...)`, per-panel `offset`, and `drag_group = "auto"`.
+- **VisorHudBatteryMarkers.lua** - Wireless battery markers with room filtering and distance-scaled world-anchored tags (`ss.hud.mark_*`, `anchor_marker`).
+- **VisorHudLookTargetMarkers.lua** - Look-at target HUD with `ss.hud.target` and a world-anchored info card.
+- **VisorHudFloatingCanvas.lua** - World-anchored panel + canvas mini-graph with distance scaling.
 - **UiContextProbe.lua** - Live overlay probe that draws the current `ss.client_overlay()` rectangles so you can see exactly what visor HUD space the vanilla UI is using.
 - **DragDropSilo.lua** - Drag-payload/drop-target example: drag items between slots, validate the drop, and handle status events. Best reference for `drag_payload`, `drop_target`, `drop_accepts`, and drop callback patterns.
 - **DragBoundsDemo.lua** - Small copyable demo showing `drag_bounds = "screen"` and `drag_bounds = "element:<id>"`.

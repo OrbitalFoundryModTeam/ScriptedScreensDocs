@@ -34,6 +34,16 @@ end, 0.1, true)  -- interval in seconds (min 0.05), includeRoomAtmos
 ss.tablet.target(nil)
 ```
 
+## Tablet room (device position)
+
+```lua
+local room = ss.tablet.room()  -- { id, name } or nil
+```
+
+Returns the room at the **tablet's current world position** (held, dropped, or in an inventory slot), not the player's feet. Use when the cartridge needs "what room is this tablet in?" independent of look-at target.
+
+When `has_target` is true, the callback may also include `room = { id, name }` for the **target device's** room (distinct from `ss.tablet.room()`).
+
 ## Callback Data Fields
 
 | Field | Type | Description |
