@@ -1,32 +1,55 @@
 # Persistence (Save/Load)
 
-## What's Automatic
+## What's automatic (ScriptedScreens hosts)
 
-ScriptedScreens persists a **UI snapshot** across game saves:
+On **motherboard consoles**, **circuit boards**, **tablet cartridges**, and the **programmable visor**, ScriptedScreens saves a **UI snapshot** with the world:
 
-- UI element definitions (type/rect/style/props)
+- Element definitions (type, rect, style, props)
 - Canvas pixel buffers
 - Scroll positions
 
-## Script State
+That snapshot is restored when you load the save. Vanilla **IC circuit housings** do not run ScriptedScreens UI - only the four hosts above do.
 
-Your Lua script may re-run from the top after load. If your UI is driven by script variables (current tab, selected item, etc.), implement `serialize()` / `deserialize(blob)`:
+## Script state: use `ic.persist`
+
+Lua locals and globals are **not** saved by the game. For tabs, counters, drag offsets, game state, and anything your script owns, use StationeersLua **`ic.persist`** (string key/value store). It survives world save/load, housing power cycles, and chip pull/reinsert when the source code is unchanged.
 
 ```lua
-local currentTab = "main"
+local KEY = "ui_state"
 
-function serialize()
-    return currentTab
+local function load_state()
+    if not ic.persist.has(KEY) then return nil end
+    local raw = ic.persist.get(KEY)
+    if type(raw) ~= "string" then return nil end
+    local ok, t = pcall(util.json.decode, raw)
+    return ok and t or nil
 end
 
-function deserialize(blob)
-    if type(blob) == "string" then
-        currentTab = blob
-        ss.ui.activate(currentTab)
-    end
+local function save_state(t)
+    local ok, raw = pcall(util.json.encode, t)
+    if ok and raw then ic.persist.set(KEY, raw) end
+end
+
+local currentTab = "main"
+local saved = load_state()
+if saved and saved.tab then currentTab = saved.tab end
+
+function tick(dt)
+    save_state({ tab = currentTab })
+    ss.ui.activate(currentTab)
 end
 ```
 
-For structured state, use **`util.json.encode` / `util.json.decode`** (see **`Examples/SampleUI/RocketControlDemo.lua`**). **`Examples/VisorHudPong.lua`** saves **`lay_dx` / `lay_dy`** (dragged HUD offset) the same way.
+Read keys at **module level** after load - `ic.persist` is hydrated before your script's top-level code runs. See [StationeersLua persistence](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) and [ic.persist API](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/persist).
 
-See the [StationeersLua persistence docs](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) for full details.
+## Editing chip source clears the host UI
+
+When you change a chip's **source code** in the IC editor (or sync new code over the network), the **host's on-screen UI is cleared** before the new script compiles. The new script's `init()` / first draw builds a fresh layout. This avoids leftover buttons and labels from an old version of the script.
+
+Same-source **power off/on** or **pull/reinsert** does **not** clear the UI snapshot - only an actual source change does.
+
+## Legacy `serialize()` / `deserialize(blob)`
+
+Still supported (stored inside `ic.persist` under the hood). Prefer **`ic.persist`** for new scripts - you can restore during module init without waiting for `deserialize()`.
+
+Examples: `Examples/VisorHudPong.lua` (drag offsets), `Examples/SampleUI/RocketControlDemo.lua` (structured JSON state).
