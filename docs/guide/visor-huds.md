@@ -190,19 +190,32 @@ ss.hud.on_overlay_change(rebuild) -- fires when vanilla UI shows/hides
 rebuild()
 ```
 
-**Persisting position across saves.** Save the offset table from `serialize()` and restore it with `hud:set_drag_offset(id, dx, dy)` in `deserialize()`:
+**Persisting position across saves.** Use StationeersLua **`ic.persist`** (hydrated before init; survives housing power cycles):
 
 ```lua
-function serialize()
+local PERSIST_KEY = "layout"
+
+local function persist_save_layout()
     local off = hud:drag_offset("panel")
-    return util.json.encode({ dx = off.dx, dy = off.dy })
+    local ok, raw = pcall(util.json.encode, { dx = off.dx, dy = off.dy })
+    if ok and raw then ic.persist.set(PERSIST_KEY, raw) end
 end
 
-function deserialize(s)
-    local t = util.json.decode(s)
-    if t then hud:set_drag_offset("panel", t.dx or 0, t.dy or 0) end
-    rebuild()
+local function persist_restore_layout()
+    if not ic.persist.has(PERSIST_KEY) then return end
+    local raw = ic.persist.get(PERSIST_KEY)
+    if type(raw) ~= "string" then return end
+    local ok, t = pcall(util.json.decode, raw)
+    if ok and type(t) == "table" then
+        hud:set_drag_offset("panel", tonumber(t.dx) or 0, tonumber(t.dy) or 0)
+    end
 end
+
+persist_restore_layout()
+hud:on_drag(function()
+    rebuild()
+    persist_save_layout()
+end)
 ```
 
 See **`Examples/VisorHudStopwatch.lua`**, **`VisorHudMissionDeck.lua`**, and **`VisorHudMultiPanel.lua`** for complete working versions of this pattern.
