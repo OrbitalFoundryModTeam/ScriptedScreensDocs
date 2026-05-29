@@ -34,8 +34,8 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 
 ## Widget & Layout Demos
 
-- **WidgetShowcase.lua** — Static showcase of every chart, table, gauge, and layout widget on a single screen.
-- **LiveDashboard.lua** — Animated station monitoring dashboard that updates every tick with simulated sensor data.
+- **WidgetShowcase.lua** — Chart/table/gauge/layout showcase; live **sparkline** and **linechart** stream via **`handle:push()`**.
+- **LiveDashboard.lua** — Station monitor: build-once layout, **`handle:push()`** for sparklines + linechart, **`set_props`** for gauges/table/barchart.
 - **GradientShowcase.lua** — All gradient features: 2-color, multi-stop, all four directions, and the `ss.ui.gradient()` helper.
 - **ProgressSpinnerDemo.lua** — Progress bar features (`color_stops`, `indeterminate`), spinners, and gauge invert mode.
 - **ZIndexDemo.lua** — Overlapping panels with `props.z_index` / `props.zIndex`: static stack, animated phase cycle, scrollview overlap (visual test for draw order).
@@ -46,8 +46,8 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 - **AirlockControl.lua** — Tick-driven airlock controller with auto-detect single/dual vent, safety interlocks, and error-resilient cycling.
 - **FindByName.lua** — Demonstrates `ic.find()` / `ic.find_all()` for finding devices by Labeler name.
 - **SolarTrackerMaxiMK2-ScriptedScreens.lua** — Solar panel tracking system with UI display.
-- **PowerManager.lua** — Power grid management and monitoring.
-- **PIDDashboard.lua** — PID controller dashboard with tuning.
+- **PowerManager.lua** — Power grid dashboard; battery charge **sparkline** streamed via **`handle:push()`**.
+- **PIDDashboard.lua** — PID controller dashboard; pressure **sparkline** streamed via **`handle:push()`** (build-once layout).
 
 ## Media & Assets
 

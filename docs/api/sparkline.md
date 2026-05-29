@@ -37,6 +37,29 @@ ui:element({
 
 ## Live Updating
 
+The simplest way to stream data is `handle:push(value)`. The widget keeps a rolling
+window for you - no manual history table, `table.remove`, or `table.insert`:
+
+```lua
+local spark = ui:element({
+    id = "chart", type = "sparkline",
+    rect = { unit = "px", x = 10, y = 50, w = 200, h = 60 },
+    props = { capacity = 120 },  -- keep the last 120 samples (default 64)
+})
+
+function tick(dt)
+    spark:push(ic.read(0, ic.enums.LogicType.Temperature) or 20)
+    ui:commit()
+end
+```
+
+`push` only updates the snapshot, exactly like `set_props` - call `ui:commit()` once
+after any number of pushes to flush to clients.
+
+### Manual data (alternative)
+
+If you maintain your own history table, `set_props` still works:
+
 ```lua
 local history = { 20, 20, 20, 20, 20 }
 local spark = ui:element({ id = "chart", type = "sparkline", ... })

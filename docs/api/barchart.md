@@ -38,3 +38,25 @@ ui:element({
 | `font_size` | Label/value font size |
 | `gap` | Gap between bars in pixels (default 4) |
 | `show_values` | `"true"` to show value labels above bars |
+
+## Streaming with `push`
+
+For a live "last N readings" bar display, `handle:push(value)` appends one bar and keeps a
+rolling window of the last `capacity` values (default 64):
+
+```lua
+local bars = ui:element({
+    id = "rpm_bars", type = "barchart",
+    rect = { unit = "px", x = 10, y = 50, w = 300, h = 100 },
+    props = { capacity = 24 },   -- show the last 24 samples
+})
+
+function tick(dt)
+    bars:push(ic.read(0, ic.enums.LogicType.RatioOxygen) * 100)
+    ui:commit()
+end
+```
+
+`push` manages the numeric `values` only; it does not roll `labels`, so leave `labels`
+unset for streaming bars (use it for fixed, labeled categories instead). `push` updates
+the snapshot like `set_props` - call `ui:commit()` once after pushing.

@@ -46,3 +46,30 @@ ui:element({
 | `show_grid` | `"true"` to show grid lines with Y-axis labels |
 | `show_legend` | `"true"` to show series legend at top |
 | `fill` | `"true"` to fill area under each line |
+
+## Streaming with `push`
+
+For live charts, `handle:push(...)` appends one sample per series and keeps a rolling
+window of the last `capacity` samples (default 64) - no manual `series` table juggling:
+
+```lua
+local chart = ui:element({
+    id = "power_chart", type = "linechart",
+    rect = { unit = "px", x = 10, y = 50, w = 300, h = 120 },
+    props = {
+        capacity = 60,                              -- window length
+        series_labels = { "Generated", "Load" },
+        series_colors = { "#22C55E", "#EF4444" },
+    },
+    style = { bg = "#111827", show_grid = "true", show_legend = "true" },
+})
+
+function tick(dt)
+    chart:push(generated_w, load_w)   -- one value per series, in order
+    ui:commit()
+end
+```
+
+Series are created on first push and stay length-aligned. If you push fewer values than
+there are series, the missing series carry their previous value forward. `push` only
+updates the snapshot - call `ui:commit()` once after pushing.
