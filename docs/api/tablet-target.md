@@ -2,6 +2,8 @@
 
 When running on a **tablet cartridge**, detect what the player is looking at using `ss.tablet.target`.
 
+In multiplayer, target updates and UI input are processed on the **server** from the client that **holds** the tablet. Other players cannot feed target or click data into your cartridge.
+
 ```lua
 ss.tablet.target(function(data)
     if data.has_target then

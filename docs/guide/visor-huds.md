@@ -220,6 +220,12 @@ end)
 
 See **`Examples/VisorHudStopwatch.lua`**, **`VisorHudMissionDeck.lua`**, and **`VisorHudMultiPanel.lua`** for complete working versions of this pattern.
 
+## Multiplayer
+
+Visor HUD logic runs on the **server**. The **wearer's** client sends look-at target updates, marker screen positions, and optional vanilla UI overlay snapshots (`ss.client_overlay()`). The server drives `ss.hud.target` and marker callbacks from that data.
+
+**Tablet cartridges** use the same pattern: `ss.tablet.target` and UI clicks are handled on the server from the client that **holds** the tablet, not from other players.
+
 ## World targeting and anchored markers
 
 Visor-only APIs on `ss.hud` (full reference: [Visor HUD Targeting & World Anchors](/api/visor-hud-target)):
