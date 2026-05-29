@@ -36,7 +36,7 @@ features:
     details: Pixel-level rendering for custom graphics — lines, circles, arcs, triangles, polylines. Perfect for games and oscilloscopes.
   - icon: 📱
     title: Tablet Support
-    details: Tablet cartridges with target detection and wireless remote-network access - inspect devices in front of you or tether to an omni transmitter for portable dashboards and control.
+    details: Tablet cartridges with target detection and wireless remote-network access - inspect devices in front of you or tether to a wireless data access point for portable dashboards and control.
   - icon: 👓
     title: Programmable Visor HUDs
     details: Build wearer-tied HUD overlays with `ss.hud`, including draggable panels, vanilla-HUD avoidance with `ss.client_overlay()`, and fast canvas mini-games.

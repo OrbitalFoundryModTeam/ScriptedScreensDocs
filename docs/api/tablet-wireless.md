@@ -1,8 +1,8 @@
 # Tablet Wireless Networks
 
-Wireless Lua cartridges can tether to **omni power transmitters** on the data network, letting scripts connect as if the tablet were wired in.
+Wireless Lua cartridges can tether to **Wireless Data Access Point** structures on the data network, letting scripts connect as if the tablet were wired in.
 
-## Listing Transmitters
+## Listing Access Points
 
 ```lua
 local transmitters = ss.tablet.wireless.list()
@@ -14,7 +14,7 @@ end
 ## Connecting
 
 ```lua
--- Connect by transmitter id (or network_id), with mesh enabled
+-- Connect by access point id (or network_id), with mesh enabled
 local ok, err = ss.tablet.wireless.connect(transmitters[1].id, true)
 if not ok then
     print("connect failed:", err)
@@ -57,25 +57,19 @@ Tablet cartridges do **not** expose configurable `d0`-`d5` pin mappings like a w
 
 | Function                                | Returns | Description                               |
 | --------------------------------------- | ------- | ----------------------------------------- |
-| `ss.tablet.wireless.list()`             | table[] | List available omni transmitters in range |
-| `ss.tablet.wireless.connect(id, mesh?)` | ok, err | Connect to a transmitter                  |
+| `ss.tablet.wireless.list()`             | table[] | List available wireless data access points in range |
+| `ss.tablet.wireless.connect(id, mesh?)` | ok, err | Connect to an access point                  |
 | `ss.tablet.wireless.status()`           | table   | Query connection status                   |
 | `ss.tablet.wireless.disconnect()`       | —       | Disconnect from current network           |
 
-### Transmitter Entry Fields
+### Access Point Entry Fields
 
 | Field        | Type   | Description              |
 | ------------ | ------ | ------------------------ |
-| `name`       | string | Transmitter display name |
-| `id`         | number | Transmitter ReferenceId  |
-| `network_id` | number | Data network ID          |
-| `distance`   | number | Distance in meters       |
+| `name`       | string | Access point display name |
+| `id`         | number | Access point ReferenceId  |
+| `network_id` | number | Data network ReferenceId  |
+| `distance`   | number | Distance in metres      |
+| `max_distance` | number | Maximum link range    |
 
-### Status Fields
-
-| Field            | Type    | Description              |
-| ---------------- | ------- | ------------------------ |
-| `connected`      | boolean | Currently connected      |
-| `in_range`       | boolean | Transmitter is in range  |
-| `transmitter_id` | number  | Connected transmitter ID |
-| `network_id`     | number  | Connected network ID     |
+`mesh = true` on connect allows seamless handoff between multiple wireless data access points on the same data network while you move through your base.

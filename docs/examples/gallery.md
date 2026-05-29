@@ -22,7 +22,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 - **AtmosAnalyzer.lua** — Replicates the base game's atmos cartridge. Point at pipes, tanks, or vents to see pressure, temperature, and gas composition.
 - **DeviceInspector.lua** — Detailed device inspector showing logic values, slot contents, power state, power/data networks, and health.
 - **EnergyNetworkTarget.lua** — Focused view of power cable network loads and battery totals.
-- **WirelessTabletDemo.lua** — Wireless cartridge demo connecting to omni transmitters.
+- **WirelessTabletDemo.lua** — Wireless cartridge demo connecting to wireless data access points.
 
 ## Network Examples
 
