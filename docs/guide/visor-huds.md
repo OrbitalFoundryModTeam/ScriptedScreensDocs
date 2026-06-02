@@ -158,6 +158,10 @@ Three props on the panel define a draggable HUD:
 - **`drag_group = "auto"`** - moves every descendant of this layout subtree along with the panel. Omit it if you only want the panel itself to move.
 - **`drag_bounds = "screen"`** - clamps the live drag so the panel cannot leave the visor canvas. Omit it for raw unclamped drag.
 
+By default, grabbing a draggable panel also raises it above overlapping siblings (`drag_to_front`, on by default). Set **`drag_to_front = "false"`** on the leader panel if you manage **`z_index`** yourself.
+
+For **PAN suit vitals** (no wireless link), see **`Examples/VisorHudSuitPan.lua`** in the mod folder.
+
 The runtime stores the cumulative offset for each draggable element. Read it back with **`hud:drag_offset(id)`** during `rebuild()`, then re-run `rebuild()` from a single callback when the offset changes:
 
 ```lua
@@ -185,10 +189,28 @@ local function rebuild()
     hud:commit()
 end
 
-hud:on_drag(rebuild)              -- fires when the user releases the panel
-ss.hud.on_overlay_change(rebuild) -- fires when vanilla UI shows/hides
+hud:on_move(rebuild)   -- fires on drag-end AND overlay change (replaces the two calls below)
+-- hud:on_drag(rebuild)              -- (individual alternative)
+-- ss.hud.on_overlay_change(rebuild) -- (individual alternative)
 rebuild()
 ```
+
+**`hud:on_move(fn)`** is the preferred single-call registration for visor HUDs. It registers the same callback for both drag-end and overlay changes. On board/cartridge surfaces it is identical to `hud:on_drag(fn)`. Pass `nil` to unregister both.
+
+**Skipping rebuilds during drag.** If your `tick()` calls `rebuild()` on a timer, the panel will snap back to its committed position every tick while the user is still holding the mouse - because `drag_offset` only updates on `drag_end`. Guard it:
+
+```lua
+function tick(dt)
+  refresh_elapsed = refresh_elapsed + dt
+  if refresh_elapsed < REFRESH_S then return end
+  refresh_elapsed = 0
+  if not hud:is_dragging() then  -- skip while panel is held
+    rebuild()
+  end
+end
+```
+
+`hud:is_dragging()` returns `true` for any panel on the surface. `hud:is_dragging("deck")` tests a specific element. The flag is set in `OnBeginDrag` and cleared before `on_drag` fires, so your `on_drag` rebuild callback always sees `false`.
 
 **Persisting position across saves.** Use StationeersLua **`ic.persist`** (hydrated before init; survives housing power cycles):
 

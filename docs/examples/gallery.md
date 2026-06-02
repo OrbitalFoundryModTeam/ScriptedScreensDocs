@@ -5,6 +5,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 ## Programmable Visor HUDs
 
 - **VisorHudLayoutDemo.lua** - Compact visor HUD showing `ss.client_overlay()`-aware placement and dynamic layout rebuilds.
+- **VisorHudSuitPan.lua** - Suit vitals HUD over PAN (`ic.device_list` + `ic.read_id` on the worn suit). Requires Suit Networking Module or dev board.
 - **VisorHudStopwatch.lua** - Interactive mission timer HUD with draggable visor panel behavior.
 - **VisorHudSciFiTicker.lua** - Bottom-edge ticker HUD that stays clear of the vanilla suit UI.
 - **VisorHudMissionDeck.lua** - Button-driven visor HUD panel with status text and mission-style interactions.

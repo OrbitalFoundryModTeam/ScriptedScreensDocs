@@ -65,6 +65,7 @@ Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element
 | Prop | Description |
 |---|---|
 | `draggable` | `"true"` / `"1"` - panel receives pointer drag; raise **`z_index`** on buttons, `interface_button`, and other controls **above** this panel so they stay clickable. |
+| `drag_to_front` | Default **`"true"`**. When enabled, grabbing this panel raises its **`z_index`** above same-parent siblings (desktop-window stacking). Set **`"false"`** or **`"0"`** to keep manual **`z_index`** control. |
 | `drag_group` | Comma- or semicolon-separated **element ids** on the **same surface** that move with this drag (default: this panel's id only). Every id in the group must use **`rect.unit = "px"`**. For `surface:layout(...)` containers, you can also use `"auto"` or `drag_group_auto = true` to collect every descendant id automatically. |
 | `drag_bounds` | Optional live clamp for the draggable **leader** during the gesture. `"screen"` / `"surface"` keeps the leader fully inside the surface root. `"element:<id>"` keeps the leader fully inside another same-surface element's rect. Followers in `drag_group` move with the leader. Omit the prop for raw unclamped drag. |
 
@@ -72,7 +73,17 @@ Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element
 
 - **`surface:drag_offset(id)`** during `rebuild()` to place the panel at the user's chosen position.
 - **`surface:on_drag(fn)`** to know when a gesture finished so you can re-run `rebuild()`. The callback receives the dragged element's `id`.
-- **`surface:set_drag_offset(id, dx, dy)`** in `deserialize()` to restore a saved position.
+- **`surface:on_move(fn)`** - convenience: registers both `on_drag` and (on visor surfaces) `ss.hud.on_overlay_change` in a single call. Replace both separate registrations with `hud:on_move(rebuild_shell)`.
+- **`surface:set_drag_offset(id, dx, dy)`** to restore a saved position (call at module level before the first `rebuild()`, using values loaded from `ic.persist`).
+- **`surface:is_dragging([id])`** - returns `true` while a panel-repositioning drag gesture is live. Omit `id` to test any element on the surface; pass a specific `id` to test one panel. **Use this in `tick()` to skip rebuilds that would snap the panel back** to its committed (pre-drag) position:
+  ```lua
+  function tick(dt)
+    -- accumulate time ...
+    if not hud:is_dragging() then
+      rebuild_shell()
+    end
+  end
+  ```
 - **`handle:on("drag_begin", fn)`** / **`handle:on("drag_end", fn)`** for per-element drag notifications when you want them at the element rather than surface level.
 
 See [Programmable Visor HUDs - Dragging visor panels](/guide/visor-huds#dragging-visor-panels) for the full pattern and **`Examples/DragBoundsDemo.lua`** for `handle:on("drag_begin", fn)` element callbacks.

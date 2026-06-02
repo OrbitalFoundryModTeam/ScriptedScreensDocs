@@ -48,8 +48,8 @@ When you change a chip's **source code** in the IC editor (or sync new code over
 
 Same-source **power off/on** or **pull/reinsert** does **not** clear the UI snapshot - only an actual source change does.
 
-## Legacy `serialize()` / `deserialize(blob)`
+## Legacy `serialize()` / `deserialize(blob)` - deprecated
 
-Still supported (stored inside `ic.persist` under the hood). Prefer **`ic.persist`** for new scripts - you can restore during module init without waiting for `deserialize()`.
+> **Deprecated.** Both functions still work (stored inside `ic.persist` under the hood) but should not be used in new scripts. Use **`ic.persist`** directly - it is hydrated before your top-level code runs, so you can restore state at module level without waiting for a `deserialize()` callback.
 
-Examples: `Examples/VisorHudPong.lua` (drag offsets), `Examples/SampleUI/RocketControlDemo.lua` (structured JSON state).
+Examples that have been migrated: `Examples/VisorHudPong.lua` (drag offsets), `Examples/SampleUI/RocketControlDemo.lua` (structured JSON state).
