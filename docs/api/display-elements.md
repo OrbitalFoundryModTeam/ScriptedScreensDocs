@@ -88,9 +88,39 @@ Set **`props.draggable`** to `"true"` or `"1"` on a **`type = "panel"`** element
 
 See [Programmable Visor HUDs - Dragging visor panels](/guide/visor-huds#dragging-visor-panels) for the full pattern and **`Examples/DragBoundsDemo.lua`** for `handle:on("drag_begin", fn)` element callbacks.
 
-**Multiplayer:** `drag_end` uses the same serialized UI-input path as clicks (`DispatchUiInput` -> host). The host applies the gesture delta to the authoritative model, updates the stored cumulative offset, and flushes; pure clients mirror live **`RectTransform`** positions into the local element dictionary (no pending ops) so **`ApplyRect`** does not snap the group back before the next sync.
+**Multiplayer (drag):** `drag_end` uses the same serialized UI-input path as clicks (`DispatchUiInput` -> host). The host applies the gesture delta to the authoritative model, updates the stored cumulative offset, and flushes; pure clients mirror live **`RectTransform`** positions into the local element dictionary (no pending ops) so **`ApplyRect`** does not snap the group back before the next sync.
 
-**`set_props` / `set_style` during drag:** property-only handle updates merge from the model; the engine refreshes the snapshot **rect** from the live `RectTransform` for **pixel** elements so mid-drag text/style updates (e.g. a score label) do not snap widgets back to stale coordinates. While a **`drag_group`** pointer drag is active, **`ApplyRect`** is skipped for those live `RectTransform`s so a concurrent flush cannot reset mid-drag positions.
+### Resizable panels
+
+Set **`props.resizable`** on a **`type = "panel"`** element to show a SE-corner resize grip. Only the leader panel's width/height change during the gesture; layout children follow via **`parent_id`** hierarchy (same rule as drag - do not list descendants in a resize group).
+
+| Prop | Description |
+|---|---|
+| `resizable` | `"true"`, `"1"`, `"se"`, `"both"` - width + height from SE corner. `"e"` / `"s"` - width or height only. Comma-separated `"e,s"` also accepted. |
+| `resize_min_w`, `resize_min_h` | Minimum size in canvas pixels (default **40**). |
+| `resize_max_w`, `resize_max_h` | Maximum size in canvas pixels (default **4096**). |
+
+**Reading the resized dimensions.** The runtime stores the committed size for each resizable leader:
+
+- **`surface:panel_size(id)`** during `rebuild()` - returns `{w=n, h=n}` when a size has been committed, else `nil`.
+- **`surface:on_resize(fn)`** - callback when a resize gesture completes (receives the element `id`).
+- **`surface:on_layout(fn)`** - convenience on visor: registers callbacks for drag-end, resize-end, and overlay change in one call. On board/cartridge: drag + resize only.
+- **`surface:set_panel_size(id, w, h)`** - restore a saved size from `ic.persist` before the first rebuild.
+- **`surface:is_resizing([id])`** - returns `true` while a resize gesture is live. Guard `tick()` rebuilds alongside **`is_dragging()`**:
+  ```lua
+  if not hud:is_dragging() and not hud:is_resizing() then
+    rebuild_shell()
+  end
+  ```
+- **`handle:on("resize_begin", fn)`** / **`handle:on("resize_end", fn)`** for per-element resize notifications.
+
+Example: **`Examples/VisorHudResizeDemo.lua`**.
+
+**Multiplayer:** `resize_end` uses the same UI-input path as drag. The host applies `dw&dh` to the authoritative model, stores **`PanelSizes`**, and flushes; pure clients mirror live **`sizeDelta`** into the local element dictionary before sync arrives.
+
+**`set_props` / `set_style` during resize:** while a resize gesture is active, **`ApplyRect`** is skipped for the leader `RectTransform` (same mid-gesture immunity as drag).
+
+**`set_props` / `set_style` during drag:** property-only handle updates merge from the model. While a **`drag_group`** pointer drag or resize gesture is active, **`ApplyRect`** is skipped for those live `RectTransform`s so a concurrent flush cannot reset mid-gesture positions.
 
 **Bounds are still script-author owned by default:** the runtime does **not** clamp drag unless you opt in with **`drag_bounds`**. That means off-edge peek, overscroll feedback, or larger virtual spaces still work without the engine snapping your panel back. If you do want a HUD cluster to stop at the visible edge while dragging, set **`drag_bounds = "screen"`** (or `"surface"`). See **`Examples/DragBoundsDemo.lua`** for a minimal example and **`Examples/VisorHudPong.lua`** for a full visor HUD using the same pattern.
 
