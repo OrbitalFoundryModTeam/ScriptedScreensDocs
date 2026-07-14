@@ -11,6 +11,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 - **VisorHudMissionDeck.lua** - Button-driven visor HUD panel with status text and mission-style interactions.
 - **VisorHudPong.lua** - Playable Pong on a visor HUD using canvas drawing, `on_frame`, and keyboard/input mode.
 - **VisorHudMultiPanel.lua** - Main reference example for larger visor HUDs using `surface:layout(...)`, per-panel `offset`, and `drag_group = "auto"`.
+- **VisorHudResizeDemo.lua** - Resizable visor panels (`props.resizable`, `panel_size` / `set_panel_size`, `on_resize` / `on_layout`).
 - **VisorHudBatteryMarkers.lua** - Wireless battery markers with room filtering and distance-scaled world-anchored tags (`ss.hud.mark_*`, `anchor_marker`).
 - **VisorHudLookTargetMarkers.lua** - Look-at target HUD with `ss.hud.target` and a world-anchored info card.
 - **VisorHudFloatingCanvas.lua** - World-anchored panel + canvas mini-graph with distance scaling.
@@ -59,6 +60,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 
 ## Utility
 
+- **DataDiskPortableTheme.lua** — SAVE/LOAD panel theme + accent onto a vanilla Data Disk via StationeersLua `ic.disk` (portable between hosts; Configuration Disk stays for config mode only).
 - **WallClock.lua** — Beautiful 12-hour analog+digital wall clock with AM/PM, day counter, and analog clock face.
 - **SmeltingGuide.lua** — Interactive smelting recipe browser.
 - **SmeltingMonitor.lua** — Live furnace monitoring dashboard.

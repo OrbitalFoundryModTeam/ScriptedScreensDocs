@@ -8,7 +8,8 @@
 - **Nested elements** — Use `parent:element()` for containers with children (headers, panels, toolbars)
 - **Throttle live updates** — Update at 2–4 Hz for dashboards to avoid excessive UI rebuilds
 - **Use layout helpers** — `ss.ui.grid()`, `ss.ui.flex()`, and `ui:layout()` eliminate manual pixel math
-- **Pin hints** — On motherboards/circuitboards, `ss.pin_label(0, "Label")` … `ss.pin_label(5, …)` stores short hints for **d0–d5** that appear on the built-in **config** screen (separate from `device_label` on the IC). One-arg `ss.pin_label(i)` reads the hint. Not available on tablet cartridges.
+- **Pin hints** — On motherboards/circuitboards, `ss.pin_label(0, "Label")` … `ss.pin_label(5, …)` stores short hints for **d0–d5** that appear on the built-in **config** screen (separate from `device_label` on the IC). One-arg `ss.pin_label(i)` reads the hint. Not available on tablet cartridges. On computers, open that screen with a **Configuration Disk** (not a vanilla Data Disk).
+- **Portable UI themes** — Save looks on a vanilla Data Disk with StationeersLua [`ic.disk`](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/disk); see **`Examples/DataDiskPortableTheme.lua`**.
 
 ## Debugging
 

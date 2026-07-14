@@ -48,7 +48,7 @@ For visor scripts, **`hud:size()`** returns the wearer's actual visor canvas siz
 
 ### Built-in port configuration
 
-When the computer or console is showing the **mod-provided port wiring screen** (second physical screen: data disk inserted on computers, or screw on consoles), **`ss.ui.activate(...)` does nothing** for that motherboard. Scripts keep running, but they cannot switch surfaces until you leave config mode. This prevents periodic `activate` calls from covering the config UI.
+When the computer or console is showing the **mod-provided port wiring screen** (second physical screen: **Configuration Disk** inserted on computers, or screw on consoles), **`ss.ui.activate(...)` does nothing** for that motherboard. Vanilla **Data Disks** do not enter config mode. Scripts keep running, but they cannot switch surfaces until you leave config mode. This prevents periodic `activate` calls from covering the config UI.
 
 ## Screen Index
 

@@ -22,7 +22,7 @@ If you are building for visors, read **[Programmable Visor HUDs](/guide/visor-hu
 
 If your script reads or writes external devices (dials, lights, sensors):
 
-1. Use a **screwdriver** on the **bolt on the side** of the console to open the **configuration screen** (or insert a **Data Disk** into one of the computer's disk slots)
+1. Use a **screwdriver** on the **bolt on the side** of the console to open the **configuration screen**, or on a **Computer** insert a **Configuration Disk** into a disk slot (crafted in StationeersLua; vanilla **Data Disks** do not enter config mode - they are for portable [`ic.disk`](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/disk) storage)
 2. Assign devices to pins **d0** through **d5**
 3. Your script can use `ic.read(0, ...)` / `ic.write(0, ...)` to talk to whatever device you assigned to d0, etc.
 
