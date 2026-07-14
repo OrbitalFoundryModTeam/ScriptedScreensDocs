@@ -40,7 +40,11 @@ function tick(dt)
 end
 ```
 
-Read keys at **module level** after load - `ic.persist` is hydrated before your script's top-level code runs. See [StationeersLua persistence](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) and [ic.persist API](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/persist).
+Read keys at **module level** after load - `ic.persist` is ready before your script's top-level code runs. See [StationeersLua persistence](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/guide/persistence) and [ic.persist API](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/persist).
+
+## Portable themes on a Data Disk
+
+To move a look between computers, store it on a vanilla **Data Disk** with [`ic.disk`](https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/api/disk). See **`Examples/DataDiskPortableTheme.lua`**. A **Configuration Disk** only opens config mode - it is not used for storage.
 
 ## Editing chip source clears the host UI
 
@@ -50,6 +54,6 @@ Same-source **power off/on** or **pull/reinsert** does **not** clear the UI snap
 
 ## Legacy `serialize()` / `deserialize(blob)` - deprecated
 
-> **Deprecated.** Both functions still work (stored inside `ic.persist` under the hood) but should not be used in new scripts. Use **`ic.persist`** directly - it is hydrated before your top-level code runs, so you can restore state at module level without waiting for a `deserialize()` callback.
+> **Deprecated.** Both functions still work, but new scripts should use **`ic.persist`** directly. You can restore state at module level without waiting for a `deserialize()` callback.
 
 Examples that have been migrated: `Examples/VisorHudPong.lua` (drag offsets), `Examples/SampleUI/RocketControlDemo.lua` (structured JSON state).
