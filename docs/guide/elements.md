@@ -32,8 +32,11 @@ panel:set_style({ bg = "#0EA5E9" })
 ## Removing Elements
 
 ```lua
-ui:remove("panel")  -- Also unregisters event handlers
+ui:remove("panel")   -- also unregisters event handlers
+title:remove()       -- preferred for nested children
 ```
+
+`parent:element({ id = "title" })` creates id `header/title`. `ui:remove("title")` matches that when unique. Removing a parent also removes nested children. To show a widget again, call `element(def)` with the same definition (keep the def table). There is no `add(id)` that restores a removed widget.
 
 ## Draw order (`z_index`) {#draw-order}
 

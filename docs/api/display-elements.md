@@ -37,6 +37,7 @@ ui:element({
 | `font_size` | Font size (default 16) |
 | `color` | Text color |
 | `align` | `"left"`, `"center"`, `"right"` |
+| `shadow` | Default `true`. Set `false` to disable the text shadow. Same key on any element that draws text (button, checkbox, table, charts, gauge, and so on). |
 
 ## `panel`
 
