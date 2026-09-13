@@ -48,7 +48,7 @@ To move a look between computers, store it on a vanilla **Data Disk** with [`ic.
 
 ## Editing chip source clears the host UI
 
-When you change a chip's **source code** in the IC editor (or sync new code over the network), the **host's on-screen UI is cleared** before the new script compiles. The new script's `init()` / first draw builds a fresh layout. This avoids leftover buttons and labels from an old version of the script.
+When you change a chip's **source code** in the IC editor (or sync new code over the network), the **host's on-screen UI is cleared** before the new script compiles. The new script's module-level setup / first draw builds a fresh layout. This avoids leftover buttons and labels from an old version of the script.
 
 Same-source **power off/on** or **pull/reinsert** does **not** clear the UI snapshot - only an actual source change does.
 

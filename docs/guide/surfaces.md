@@ -21,6 +21,21 @@ ss.ui.activate("settings")
 
 You can keep writing to inactive surfaces — they will display the latest state when activated.
 
+## MCP UI automation (opt-in)
+
+External AI tools (StationeersLua MCP) can list surfaces, dump elements, activate pages, click/change/toggle widgets, and capture screenshots. **Mutating** tools stay off until the running script opts in:
+
+```lua
+-- Module-level (runs once when the chip compiles / loads). There is no auto-called init().
+ss.ui.allow_mcp_automation(true)
+-- ss.ui.allow_mcp_automation(true, { indicator = false })  -- hide on-screen badge only
+-- build UI...
+```
+
+Use **`ss.hud.allow_mcp_automation`** on a Programmable Visor. The flag is **not saved**; call it again at module level after load (same as any other one-shot setup). An **MCP AUTOMATION** badge appears on the active surface (click collapses to a corner dot). Hover tooltips and the visor inventory status LED always report automation even if you hide the badge. Server admins can force the badge with **`Features.ForceMcpAutomationIndicator`** (see [Installation](/guide/installation#bepinex-features-settings)).
+
+MCP tools: `get_scripted_surfaces`, `get_surface_elements`, `activate_scripted_surface`, `interact_scripted_screen` (supports `steps[]`), `capture_scripted_screen` (supports `surfaces` / `all`). Example chip: `Examples/McpAutomationDemo.lua` in the ScriptedScreens mod.
+
 ## Programmable Visor HUDs
 
 When the Lua chip sits in **Programmable Visor** glasses, use **`ss.hud`** instead of `ss.ui` for the same surface API:

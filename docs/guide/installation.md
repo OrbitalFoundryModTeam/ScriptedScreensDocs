@@ -25,3 +25,14 @@ When creating or joining a world, make sure the mods are enabled in the mod list
 ::: warning
 ScriptedScreens **requires** StationeersLua. It validates the version on load and will self-disable if StationeersLua is missing or too old.
 :::
+
+## BepInEx Features settings
+
+Server-authoritative toggles live under **`[Features]`** in `BepInEx/config/ScriptedScreens.cfg` (or the in-game mod settings UI):
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `AllowAirConditionerHost` | `false` | Allow a Lua chip in a wall Air Conditioner slot to take over the face screen via `ss.ui.surface`. |
+| `ForceMcpAutomationIndicator` | `false` | Always draw the on-screen **MCP AUTOMATION** badge when a script has opted in with `ss.ui.allow_mcp_automation`, even if the script passed `indicator = false`. Device tooltips and the visor status LED still report automation regardless of this setting. |
+
+These apply on the host / dedicated server. Pure clients render what the host already sent.
