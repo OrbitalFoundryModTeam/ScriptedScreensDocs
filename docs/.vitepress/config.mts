@@ -100,6 +100,7 @@ export default defineConfig({
         {
           text: 'Reference',
           items: [
+            { text: 'Pins & Custom Config', link: '/api/pins-config' },
             { text: 'Global Tables & Enums', link: '/api/globals' },
           ]
         },

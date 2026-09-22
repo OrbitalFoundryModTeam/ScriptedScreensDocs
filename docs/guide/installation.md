@@ -33,6 +33,7 @@ Server-authoritative toggles live under **`[Features]`** in `BepInEx/config/Scri
 | Setting | Default | Purpose |
 | --- | --- | --- |
 | `AllowAirConditionerHost` | `false` | Allow a Lua chip in a wall Air Conditioner slot to take over the face screen via `ss.ui.surface`. |
+| `AllowCustomConfigSurface` | `false` | Allow board Lua to own the `"config"` surface and assign `d0`–`d5` via `ss.pin` / `ss.pin_devices`. Off = built-in device-mapping UI. |
 | `ForceMcpAutomationIndicator` | `false` | Always draw the on-screen **MCP AUTOMATION** badge when a script has opted in with `ss.ui.allow_mcp_automation`, even if the script passed `indicator = false`. Device tooltips and the visor status LED still report automation regardless of this setting. |
 
 These apply on the host / dedicated server. Pure clients render what the host already sent.

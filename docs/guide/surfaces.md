@@ -65,6 +65,8 @@ For visor scripts, **`hud:size()`** returns the wearer's actual visor canvas siz
 
 While a computer or console is on the **port wiring / config screen** (**Configuration Disk** on computers, or the side screw on consoles), **`ss.ui.activate(...)` does nothing**. Vanilla **Data Disks** do not open that screen. Your script keeps running, but it cannot switch surfaces until you leave config mode.
 
+By default that screen is the built-in pin UI. With **`Features.AllowCustomConfigSurface`** on, config mode activates `"config"` without drawing that UI - paint it yourself and assign pins with `ss.pin`. See **[Pins & Custom Config Surface](/api/pins-config)**.
+
 ## Screen Index
 
 For multi-screen setups, provide a screen index:

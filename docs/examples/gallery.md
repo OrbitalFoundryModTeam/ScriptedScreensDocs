@@ -46,6 +46,7 @@ ScriptedScreens ships with a large collection of example scripts in the `Example
 
 - **AccessControl.lua** — Security keypad with PIN and biometric authentication.
 - **AirlockControl.lua** — Tick-driven airlock controller with auto-detect single/dual vent, safety interlocks, and error-resilient cycling.
+- **CustomConfigSurface.lua** — Opt-in custom device-config screen (`Features.AllowCustomConfigSurface`). Draws six pin rows on `ss.ui.surface("config")` and assigns `d0`–`d5` via `ss.pin` / `ss.pin_devices`. See [Pins & Custom Config](/api/pins-config).
 - **FindByName.lua** — Demonstrates `ic.find()` / `ic.find_all()` for finding devices by Labeler name.
 - **SolarTrackerMaxiMK2-ScriptedScreens.lua** — Solar panel tracking system with UI display.
 - **PowerManager.lua** — Power grid dashboard; battery charge **sparkline** streamed via **`handle:push()`**.
