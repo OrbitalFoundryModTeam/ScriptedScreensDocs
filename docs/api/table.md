@@ -63,3 +63,5 @@ Individual cells can have per-cell styling:
 |---|---|
 | `on_click` | `(rowIndex, playerName)` — data row clicked |
 | `on_change` | `(columnIndex, playerName)` — header clicked (sort) |
+
+rowIndex and columnIndex are returned as strings, not numbers
