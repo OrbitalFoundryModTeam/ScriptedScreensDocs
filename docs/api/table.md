@@ -64,4 +64,10 @@ Individual cells can have per-cell styling:
 | `on_click` | `(rowIndex, playerName)` — data row clicked |
 | `on_change` | `(columnIndex, playerName)` — header clicked (sort) |
 
-rowIndex and columnIndex are returned as strings, not numbers
+`rowIndex` and `columnIndex` are 1-based and arrive as **strings** (`"1"`, `"2"`, ...), like every UI event value. Convert them before doing arithmetic or indexing your data:
+
+```lua
+on_click = function(rowIndex, playerName)
+    local row = rows[tonumber(rowIndex)]
+end
+```
