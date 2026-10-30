@@ -30,9 +30,13 @@ panel:set_style({ bg = "#0EA5E9" })
 ```
 
 ## Removing Elements
-
+You can remove most elements by ID as show below.
 ```lua
-ui:remove("panel")  -- Also unregisters event handlers
+ui:remove("panel")  -- Removes element.
+```
+Removing child elements should be done using `/` to define the object path. This hierarchy format is only used in strings. Child Elements should be defined as show in **[Nested / Relative Layout](https://orbitalfoundrymodteam.github.io/ScriptedScreensDocs/guide/elements.html#nested-relative-layout)**
+```lua
+ui:remove("parent/child")  -- Removes child element, leave the parent untouched.
 ```
 
 ## Draw order (`z_index`) {#draw-order}
